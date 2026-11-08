@@ -1,0 +1,19 @@
+
+
+# Dipendenze generate da Composer
+vendor/
+
+# File temporanei di runtime
+/data/*.tmp*
+/data/config.php
+/data/site.sqlite*
+
+# Backup locali
+*backup*/
+*.bak
+*.old
+
+# File temporanei editor/sistema
+.DS_Store
+*.swp
+*.swo

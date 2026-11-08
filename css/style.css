@@ -1,0 +1,973 @@
+/* ======================================================
+   Protezione Civile — style.css
+   WCAG 2.1 AA Conforme | AGID Compliant
+   ====================================================== */
+
+
+/* ======================================================
+   1. VARIABILI GLOBALI
+   ====================================================== */
+:root {
+    /* Colori principali */
+    --pc-yellow:      #FFC200;   /* Giallo WCAG AA su blu (6.8:1) */
+    --pc-yellow-dk:   #C9A600;   /* Giallo scuro per hover */
+    --pc-yellow-text: #996700;   /* Giallo testuale più scuro per sfondi chiari */
+    --pc-blue:        #003B7A;   /* Blu istituzionale */
+    --pc-blue-mid:    #004FA3;
+    --pc-blue-lt:     #0061C8;
+    --pc-blue-text:   #001a3a;   /* Blu scuro per testo */
+    --pc-red:         #D62828;
+    --pc-light:       #F8F9FA;
+    --pc-dark:        #0D1620;   /* Footer scuro */
+    --pc-body-bg:     #eef1f5;
+
+    /* Livelli allerta */
+    --alert-verde:    #1A7A3C;
+    --alert-giallo:   #C9A600;
+    --alert-arancio:  #D45D00;
+    --alert-rosso:    #B81C1C;
+
+    /* Bordi arrotondati */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 28px;
+
+    /* Ombre */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.07);
+    --shadow-md: 0 6px 24px rgba(0,0,0,.11);
+    --shadow-lg: 0 14px 44px rgba(0,0,0,.16);
+    --shadow-blue: 0 8px 32px rgba(0,59,122,.22);
+
+    /* Tipografia */
+    --font-display: system-ui, "Segoe UI", sans-serif;
+    --font-body: system-ui, "Segoe UI", sans-serif;
+
+    /* Transizioni */
+    --transition: 0.22s ease-in-out;
+    --transition-slow: 0.4s ease-in-out;
+}
+
+/* ======================================================
+   2. RESET & BASE
+   ====================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--pc-body-bg);
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+    padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+    section { padding: 48px 0; }
+}
+
+.border-warning-light{
+    border-color: var(--pc-yellow-text) !important
+}
+
+/* ======================================================
+   3. ACCESSIBILITÀ — Skip to Content (AGID/WCAG)
+   ====================================================== */
+.visually-hidden-focusable:focus {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000;
+    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--pc-yellow);
+    color: var(--pc-blue-text) !important;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    border: 3px solid var(--pc-blue-text);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.2s ease-in-out;
+}
+
+.visually-hidden-focusable:focus:hover {
+    background-color: var(--pc-yellow-dk);
+    color: var(--pc-blue-text) !important;
+}
+
+/* ======================================================
+   4. ACCESSIBILITÀ — Focus Visible (WCAG 2.1 AA)
+   ====================================================== */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+    outline: 3px solid var(--pc-blue);
+    outline-offset: 2px;
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--pc-blue);
+    outline-offset: 2px;
+}
+
+.nav-link:focus-visible {
+    outline: 3px solid var(--pc-yellow);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="search"]:focus-visible,
+input[type="number"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    border: 2px solid var(--pc-blue) !important;
+    outline: 3px solid var(--pc-blue);
+    outline-offset: -1px;
+    box-shadow: 0 0 0 4px rgba(0,59,122,.12);
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    outline: 3px solid var(--pc-blue);
+    outline-offset: 2px;
+}
+
+/* Rispetta preferenza movimento ridotto */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ======================================================
+   5. NAVBAR
+   ====================================================== */
+.navbar {
+    background: var(--pc-blue);
+    box-shadow: 0 2px 20px rgba(0,0,0,.28);
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+}
+
+/* Linea decorativa sottile in cima */
+.navbar::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pc-yellow) 0%, var(--pc-yellow-dk) 100%);
+}
+
+.navbar-brand {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white !important;
+    letter-spacing: 0.02em;
+}
+
+.navbar-brand img {
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,.3));
+    transition: transform var(--transition);
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    font-family: var(--font-body);
+    color: rgba(255,255,255,.85) !important;
+    font-size: 0.97rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 0.55rem 0.9rem !important;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition), background var(--transition);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--pc-yellow) !important;
+    background: rgba(255,255,255,.12);
+}
+
+.nav-link.active {
+    color: var(--pc-yellow) !important;
+    background: rgba(255,255,255,.12);
+}
+
+.nav-link.active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    left: 0.9rem;
+    right: 0.9rem;
+    height: 2px;
+    background: var(--pc-yellow);
+    border-radius: 2px;
+}
+
+/* Bottone Emergenze */
+.nav-emergency {
+    color: var(--pc-yellow) !important;
+    border-color: var(--pc-yellow) !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em;
+    transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition) !important;
+}
+
+.nav-emergency:hover,
+.nav-emergency:focus-visible {
+    color: var(--pc-blue-text) !important;
+    background-color: var(--pc-yellow) !important;
+    border-color: var(--pc-yellow) !important;
+    transform: translateY(-1px);
+}
+
+.nav-emergency:focus-visible {
+    outline: 3px solid rgba(255,194,0,.8);
+    outline-offset: 3px;
+}
+
+.text-warning-on-light {
+    color: var(--pc-yellow-text) !important;
+}
+
+/* Link admin */
+.nav-link-admin {
+    opacity: 0.55;
+    transition: opacity var(--transition) !important;
+}
+
+.nav-link-admin:hover {
+    opacity: 1;
+    color: rgba(255,255,255,.9) !important;
+    background: transparent !important;
+}
+
+/* ======================================================
+   6. DROPDOWN NAVBAR
+   ====================================================== */
+.navbar .dropdown-menu {
+    background: #fff !important;
+    border: 1px solid #dde3ec !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md) !important;
+    padding: 6px 0;
+    margin-top: 8px !important;
+    border-top: 3px solid var(--pc-yellow) !important;
+}
+
+.navbar .dropdown-item {
+    color: #1e293b !important;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background var(--transition), color var(--transition), padding-left var(--transition);
+    background: transparent !important;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.navbar .dropdown-item:hover {
+    background: #f0f5ff !important;
+    color: var(--pc-blue) !important;
+    padding-left: 1.4rem;
+}
+
+.navbar .dropdown-menu i {
+    font-size: 0.95rem;
+    opacity: 0.7;
+}
+
+@media (max-width: 991.98px) {
+    .navbar::before { display: none; }
+
+    .navbar .dropdown-menu {
+        background: rgba(255,255,255,.06) !important;
+        border: none !important;
+        border-top: 1px solid rgba(255,255,255,.1) !important;
+        box-shadow: none !important;
+        margin-top: 0 !important;
+        padding-left: 1rem;
+        border-radius: 0 !important;
+    }
+
+    .navbar .dropdown-item {
+        color: rgba(255,255,255,.78) !important;
+    }
+
+    .navbar .dropdown-item:hover {
+        background: transparent !important;
+        color: var(--pc-yellow) !important;
+        padding-left: 1.3rem !important;
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+}
+
+.risk-menu-inner {
+    padding: 0.35rem 0;
+}
+
+.risk-btn {
+    margin: 0.25rem;
+    flex: 1 1 170px;
+    min-width: 140px;
+    max-width: 220px;
+    white-space: normal;
+}
+
+@media (max-width: 767.98px) {
+    .risk-menu {
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+    }
+
+    .risk-menu-inner {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 0.4rem;
+    }
+
+    .risk-menu-inner > .small {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.4rem;
+    }
+
+    .risk-btn {
+        flex: 0 0 calc(50% - 0.4rem);
+        max-width: calc(50% - 0.4rem);
+        width: auto;
+        min-width: 0;
+    }
+}
+
+/* ======================================================
+   7. ALERT BAR — Barra di Allertamento
+   ====================================================== */
+.alert-bar {
+    padding: 9px 16px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 3px solid rgba(0,0,0,.12);
+    display: none; /* Nascondi di default, mostra solo se c'è un'allerta attiva */
+    align-items: center;
+    gap: 10px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .alert-bar {
+        animation: pulse 3.5s ease-in-out infinite;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .82; }
+}
+
+.link-comune {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0.95;
+    text-transform: none;
+    transition: opacity var(--transition);
+    text-decoration: none;
+}
+
+.link-comune:hover {
+    opacity: 1;
+}
+
+/* ======================================================
+   8. SECTION TITLE — Titolo di Sezione
+   ====================================================== */
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    text-transform: uppercase;
+    color: var(--pc-blue);
+    margin-bottom: 44px;
+    letter-spacing: 0.04em;
+    position: relative;
+    padding-bottom: 16px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 4px;
+    background: var(--pc-yellow-text);
+    border-radius: 2px;
+}
+
+/* ======================================================
+   9. HERO SECTION
+   ====================================================== */
+.hero {
+    background:
+        linear-gradient(160deg, rgba(0,13,32,.88) 0%, rgba(0,59,122,.7) 100%),
+        url('../assets/img/chi-siamo.png') center/cover no-repeat;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effetto decorativo angolare */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 60%, rgba(255,194,0,.06) 100%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    bottom: -60px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,194,0,.1) 0%, transparent 68%);
+    pointer-events: none;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.hero p {
+    font-size: 1.08rem;
+    line-height: 1.68;
+}
+
+.hero .btn-lg {
+    font-size: 1.05rem;
+    padding: 1.25rem 2.25rem;
+}
+
+/* Card info nel hero */
+.blur-effect {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(255,255,255,.07) !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
+    border-radius: var(--radius-xl) !important;
+}
+
+/* ======================================================
+   10. CARTE SERVIZI / RISCHI
+   ====================================================== */
+.service-card {
+    border: none !important;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pc-blue) 0%, var(--pc-blue-lt) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-slow);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-blue);
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    font-size: 3rem;
+    color: var(--pc-blue);
+    transition: transform var(--transition), color var(--transition);
+    display: inline-block;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.15);
+    color: var(--pc-blue-lt);
+}
+
+/* ======================================================
+   11. SEZIONE NEWS
+   ====================================================== */
+.news-card {
+    border: none !important;
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+    background: #fff;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.news-card img {
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.news-card:hover img {
+    transform: scale(1.05);
+}
+
+.news-card .card-body small {
+    font-size: .76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--pc-blue-lt) !important;
+}
+
+/* ======================================================
+   12. NUMERI DI EMERGENZA
+   ====================================================== */
+.emergency-compact-link {
+    text-decoration: none;
+    display: block;
+}
+
+.emergency-compact-link .card {
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    background: #fff;
+}
+
+.emergency-compact-link:hover .card {
+    background: #f0f5ff !important;
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-blue);
+}
+
+.emergency-compact-link h3 {
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    letter-spacing: 0.04em;
+}
+
+/* ======================================================
+   13. BADGE
+   ====================================================== */
+.badge.bg-warning {
+    background-color: var(--pc-yellow) !important;
+    color: var(--pc-blue-text) !important;
+    font-weight: 700;
+}
+
+/* ======================================================
+   14. PULSANTI
+   ====================================================== */
+.btn-warning {
+    font-family: var(--font-display);
+    letter-spacing: 0.06em;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: var(--pc-yellow);
+    border-color: var(--pc-yellow);
+    color: var(--pc-blue-text) !important;
+    border-radius: var(--radius-md);
+    transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-warning:hover {
+    background-color: var(--pc-yellow-dk);
+    border-color: var(--pc-yellow-dk);
+    color: var(--pc-blue-text) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,194,0,.35);
+}
+
+.btn-outline-light {
+    font-family: var(--font-display);
+    letter-spacing: 0.06em;
+    font-size: 1rem;
+    border-radius: var(--radius-md);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.btn-outline-light:hover {
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-outline-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-blue);
+}
+
+/* ======================================================
+   15. FOOTER
+   ====================================================== */
+footer {
+    background: #0D2347 !important;
+    color: #9ab0c8;
+    font-size: .92rem;
+    border-top: 4px solid var(--pc-yellow) !important;
+}
+ 
+.footer-heading {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pc-yellow) !important;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+ 
+.footer-text {
+    color: rgba(255,255,255,.7);
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+ 
+/* Privacy box */
+.footer-privacy-box {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    color: rgba(255,255,255,.55);
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+ 
+/* Link lista */
+.footer-links {
+    margin: 0;
+    padding: 0;
+}
+ 
+.footer-links li {
+    margin-bottom: 0.45rem;
+}
+ 
+.footer-divider {
+    border-top: 1px solid rgba(255,255,255,.08);
+    margin: 0.75rem 0 !important;
+}
+
+.footer-icons {
+    
+    font-size: 0.75rem;
+    color: var(--pc-yellow);
+    flex-shrink: 0;
+    transition: transform var(--transition);
+}
+.footer-links a {
+    color: rgba(255,255,255,.68);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color var(--transition), padding-left var(--transition);
+    padding-left: 0;
+}
+ 
+.footer-links a i {
+    font-size: 0.75rem;
+    color: var(--pc-yellow);
+    flex-shrink: 0;
+    transition: transform var(--transition);
+}
+ 
+.footer-links a:hover {
+    color: var(--pc-yellow);
+    padding-left: 4px;
+}
+ 
+.footer-links a:hover i {
+    transform: translateX(2px);
+}
+ 
+/* Contatti */
+.footer-contacts {
+    margin: 0;
+    padding: 0;
+}
+ 
+.footer-contacts li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 0.7rem;
+    color: rgba(255,255,255,.75);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+ 
+.footer-contacts li i {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+ 
+.footer-email-link {
+    color: var(--pc-yellow) !important;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition);
+}
+ 
+.footer-email-link:hover {
+    color: var(--pc-yellow-dk) !important;
+}
+ 
+.footer-phone-link {
+    color: rgba(255,255,255,.9);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color var(--transition);
+}
+ 
+.footer-phone-link:hover {
+    color: var(--pc-yellow);
+}
+/* social */
+.footer-socials {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-socials-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.75;
+    margin-bottom: 0.75rem;
+}
+
+.footer-socials-icons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+/* hover generico di fallback, nel caso aggiungessi altri social senza colore dedicato */
+.footer-social-link:hover,
+.footer-social-link:focus {
+    background-color: #d32f2f;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* colori specifici per social — sovrascrivono il fallback */
+.footer-social-link.facebook:hover,
+.footer-social-link.facebook:focus {
+    background-color: #1877f2;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.footer-social-link.instagram:hover,
+.footer-social-link.instagram:focus {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.footer-social-link.whatsapp:hover,
+.footer-social-link.whatsapp:focus {
+    background-color: #25d366;
+    color: #fff;
+    transform: translateY(-3px);
+}
+/* Box emergenza */
+.footer-emergency-box {
+    background: rgba(214,40,40,.15);
+    border: 1px solid rgba(214,40,40,.3);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    margin-top: 1rem;
+}
+ 
+.footer-emergency-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: #ff8787;
+    margin-bottom: 6px;
+}
+ 
+.footer-emergency-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff !important;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color var(--transition), transform var(--transition);
+    line-height: 1.1;
+}
+ 
+.footer-emergency-number i {
+    color: var(--pc-yellow);
+}
+ 
+.footer-emergency-number:hover {
+    color: var(--pc-yellow) !important;
+    transform: scale(1.04);
+}
+ 
+.footer-emergency-sub {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,.65);
+    margin-top: 4px;
+}
+ 
+/* Separatore e bottom bar */
+.footer-hr {
+    border-color: rgba(255,255,255,.1);
+    opacity: 1;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+ 
+.footer-bottom {
+    color: rgba(255,255,255,.6);
+    font-size: 0.82rem;
+}
+ 
+/* Compatibilità classi precedenti */
+.transition-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color var(--transition), padding-left var(--transition);
+}
+ 
+.transition-link:hover {
+    color: var(--pc-yellow) !important;
+    padding-left: 4px;
+}
+
+/* ======================================================
+   16. SCROLLBAR PERSONALIZZATA (Webkit)
+   ====================================================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--pc-body-bg); }
+::-webkit-scrollbar-thumb {
+    background: var(--pc-blue);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pc-blue-lt);
+}
+
+/* ======================================================
+   17. accordion-button PERSONALIZZATO
+   ====================================================== */
+
+.accordion-button:hover,
+.accordion-button:focus-visible {
+    background-color: var(--pc-blue) !important;
+    color: #fff !important;
+}
+
+.accordion-button:hover i,
+.accordion-button:focus-visible i {
+    color: #fff !important;
+}

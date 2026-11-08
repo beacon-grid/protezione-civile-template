@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+<head>
+    
+    <meta charset="UTF-8">
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  emergency.html — Fallback statico della pagina emergenza         ║
+    ║  Nessuna dipendenza esterna (Bootstrap, font, ecc.).             ║
+    ║  banda-check.js viene incluso anche qui: la sezione "già sulla   ║
+    ║  pagina di emergenza" lo blocca immediatamente senza fare nulla. ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+    <script>
+    window.BANDA_CHECK = {
+        url:         '/emergency.php',
+        sogliaMsImg: 3000,
+        imgTest:     '/assets/img/logo.png',
+        debug:       false,
+    };
+    </script>
+    <script src="/js/banda-check.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta id="theme-color-meta" name="theme-color" content="#003580">
+
+    <!--
+    ┌─────────────────────────────────────────────────────────────────┐
+    │  CONFIGURAZIONE — modifica questi valori per personalizzare      │
+    │  la pagina senza toccare il resto del codice.                    │
+    └─────────────────────────────────────────────────────────────────┘
+    -->
+    <script>
+    var CFG = {
+        // Identità ente
+        nomeEnte:       "Gruppo Comunale Volontari Protezione Civile",
+        nomeComune:     "Esempio",       // es. "Sesto San Giovanni"
+        siglaProvincia: "ES",   // es. "MI"
+
+        // URL
+        urlHome:      "/",
+        urlCanonical: "https://protezionecivile.comune.esempio.provincia.it/emergency.php",
+
+        // Contatti ente
+        emailPrimaria: "protezionecivile@esempio.com",
+
+        // Palette brand (deve corrispondere a style.css del sito)
+        colorePrimario:  "#003580",
+        coloreAccento:   "#FFC107",
+        coloreEmergenza: "#c1121f",
+
+        pianoPDF: "/assets/pdf/piano_emergenza_comunale.pdf",
+
+        // Numeri utili locali (il 112 è sempre mostrato a parte)
+        numeriUtili: [
+            { label: "Sala Op. Regionale Protezione Civile", numero: "000 000 000" },
+            { label: "Polizia Locale",                       numero: "+39 123 456 7890" },
+            { label: "Centralino Comune",                    numero: "+39 123 456 7890" },
+        ],
+
+        // Link sezioni sito — esterno:true apre in nuova scheda
+        links: [
+            { label: "Mappa Sicurezza",       url: "/mappa.php",                   icon: "🗺️" },
+            { label: "Prevenzione Rischi",     url: "/rischi",                    icon: "⚠️" },
+            { label: "Notizie",               url: "/news/",                       icon: "📰" },
+            { label: "Allerte Meteo Regione", url: "https://www.allerta.meteo.regione.esempio.it",  icon: "🌩️", esterno: true },
+        ],
+
+        // Istruzioni comportamentali (HTML permesso)
+        cosaFare: [
+            { testo: "<strong>Mantieni la calma.</strong> Pensa con lucidità prima di agire." },
+            { testo: "<strong>Chiama il 112</strong> se c'è pericolo per te o per altri." },
+            { testo: "<strong>Non intralciare i soccorsi.</strong> Non recarti sui luoghi dell'emergenza per curiosità." },
+            { testo: "<strong>Segui solo fonti ufficiali</strong> (questo sito, Comune, Regione, Dipartimento Protezione Civile)." },
+            { testo: "<strong>Aiuta chi è in difficoltà</strong> se puoi farlo in sicurezza (anziani, bambini, persone con disabilità)." },
+            { testo: "<strong>Tieni il telefono carico</strong> e usalo solo per comunicazioni necessarie." },
+        ],
+    };
+    </script>
+
+    <title id="page-title">Emergenza — Protezione Civile</title>
+    <meta name="description" id="page-desc" content="Pagina di emergenza della Protezione Civile. Numeri utili, cosa fare e link essenziali.">
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png">
+
+    <style>
+        /* ── Reset & base ────────────────────────────────────────── */
+        :root {
+            --primary:   #003580;
+            --accent:    #FFC107;
+            --emergency: #c1121f;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, system-ui, "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            background: #f5f7fa;
+            color: #1a1a2e;
+        }
+
+        /* ── Accessibilità ───────────────────────────────────────── */
+        .skip-link {
+            position: absolute; left: -999px; width: 1px; height: 1px; overflow: hidden;
+        }
+        .skip-link:focus {
+            position: static; width: auto; height: auto; display: inline-block;
+            padding: .5rem 1rem; background: var(--accent); color: #000;
+            font-weight: 700; text-decoration: none; margin: .5rem;
+        }
+        :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+        /* ── Layout ──────────────────────────────────────────────── */
+        .page-wrap { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 3rem; }
+
+        /* ── Topbar ──────────────────────────────────────────────── */
+        .topbar {
+            background: var(--primary);
+            color: rgba(255,255,255,.85);
+            font-size: .8rem;
+            padding: .5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .topbar a { color: rgba(255,255,255,.85); text-decoration: none; }
+        .topbar a:hover { text-decoration: underline; }
+        .badge-lite {
+            background: rgba(255,255,255,.12);
+            border-radius: 4px;
+            padding: .15rem .5rem;
+            font-size: .75rem;
+            letter-spacing: .04em;
+        }
+
+        /* ── Avviso banda + opt-out ──────────────────────────────── */
+        .banda-notice {
+            background: #fff;
+            border-left: 4px solid var(--accent);
+            padding: .8rem 1rem;
+            border-radius: 4px;
+            margin: .5rem 0 1rem;
+            font-size: .85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,.05);
+        }
+        .btn-optout {
+            background: none; border: none;
+            color: var(--primary);
+            font-weight: 700; text-decoration: underline;
+            cursor: pointer; padding: 0;
+            font-family: inherit; font-size: inherit;
+        }
+
+        /* ── Hero 112 ────────────────────────────────────────────── */
+        .hero-112 {
+            background: var(--emergency);
+            color: #fff;
+            text-align: center;
+            padding: 1.6rem 1rem 1.4rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+        .hero-112 .label-sopra  { font-size: .9rem; opacity: .9; margin-bottom: .3rem; }
+        .hero-112 .numero-112   { font-size: 5rem; font-weight: 900; line-height: 1; display: block; letter-spacing: -.04em; }
+        .hero-112 .label-sotto  { font-size: .85rem; opacity: .85; margin: .3rem 0 1rem; }
+        .btn-chiama-112 {
+            display: inline-block;
+            background: #fff;
+            color: var(--emergency);
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: .65rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .btn-chiama-112:hover { opacity: .88; }
+
+        .btn-piano-pdf {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: .75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1rem 0;
+        }
+        .btn-piano-pdf:hover { opacity: .88; }
+
+        /* ── Titoli sezione ──────────────────────────────────────── */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1.8rem 0 .7rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .section-title::after {
+            content: ''; flex: 1;
+            height: 2px;
+            background: var(--primary);
+            opacity: .15;
+            border-radius: 1px;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+        /* ── Numeri utili ────────────────────────────────────────── */
+        .numeri-list { list-style: none; }
+        .numeri-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            background: #fff;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            margin-bottom: .5rem;
+            flex-wrap: wrap;
+        }
+        .numeri-list .label  { font-size: .9rem; color: #444; flex: 1; min-width: 160px; }
+        .numeri-list .numero { font-weight: 700; color: var(--primary); font-size: 1rem; white-space: nowrap; }
+        .btn-call {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 6px;
+            padding: .3rem .8rem;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .btn-call:hover { opacity: .88; }
+
+        /* ── Cosa fare ───────────────────────────────────────────── */
+        .cosa-fare-list {
+            background: #fff;
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            counter-reset: steps;
+            list-style: none;
+        }
+        .cosa-fare-list li {
+            counter-increment: steps;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+            padding: .55rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: .95rem;
+        }
+        .cosa-fare-list li:last-child { border-bottom: none; }
+        .cosa-fare-list li::before {
+            content: counter(steps);
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: .8rem;
+            min-width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: .15rem;
+        }
+
+        /* ── Link essenziali ─────────────────────────────────────── */
+        .links-list {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e8ecf0;
+        }
+        .links-list a {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .75rem 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: .95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .links-list a:last-child { border-bottom: none; }
+        .links-list a:hover  { background: #f0f4ff; }
+        .links-list .icon    { font-size: 1.05rem; }
+        .links-list .arrow   { margin-left: auto; color: #aaa; }
+        .links-list .ext-badge {
+            font-size: .7rem;
+            background: #f0f4ff;
+            color: var(--primary);
+            border-radius: 3px;
+            padding: .1rem .3rem;
+            border: 1px solid #c0d0f0;
+        }
+
+        /* ── Intro + back + footer ───────────────────────────────── */
+        .intro-text  { margin: .75rem 0 0; font-size: .85rem; color: #666; }
+        .intro-text a { color: var(--primary); }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            color: var(--primary);
+            font-size: .9rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 1rem 0 0;
+        }
+        .back-home:hover { text-decoration: underline; }
+        .page-footer {
+            text-align: center;
+            color: #888;
+            font-size: .8rem;
+            margin-top: 2.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+        .page-footer a { color: #888; }
+
+        /* ── Responsive ──────────────────────────────────────────── */
+        @media (max-width: 480px) {
+            .hero-112 .numero-112 { font-size: 4rem; }
+        }
+
+        /* ── Stampa ──────────────────────────────────────────────── */
+        @media print {
+            .topbar, .banda-notice, .btn-chiama-112, .btn-call, .arrow, .ext-badge { display: none !important; }
+            .hero-112 { background: #000 !important; color: #fff !important; }
+            body { background: #fff; color: #000; }
+            .numeri-list li { border: 1px solid #000 !important; }
+            .numeri-list .numero::after { content: " — " attr(data-tel); font-size: .8rem; color: #444; }
+        }
+
+        /* ── Movimento ridotto ───────────────────────────────────── */
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; scroll-behavior: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Salta al contenuto principale</a>
+
+<div class="topbar">
+    <a href="/" id="link-torna">← Torna al sito completo</a>
+    <span class="badge-lite">PROTEZIONE CIVILE · Pagina di Emergenza</span>
+</div>
+
+<main id="main" class="page-wrap">
+
+    <h1 class="visually-hidden" id="page-heading">Pagina di emergenza — Protezione Civile</h1>
+
+    <!-- Avviso banda + pulsante opt-out esplicito -->
+    <div class="banda-notice" role="note" aria-label="Avviso connessione lenta">
+        ℹ️ Sei su questa pagina perché la tua connessione è lenta o il risparmio dati è attivo.
+        Se vuoi tentare comunque, puoi
+        <a href="/" id="link-torna-notice" class="btn-optout">aprire il sito completo</a>
+    </div>
+
+    <p class="intro-text" id="intro-ente"></p>
+
+    <!-- Blocco 112 -->
+    <div class="hero-112" role="region" aria-label="Numero unico di emergenza 112">
+        <div class="label-sopra">In emergenza chiama subito</div>
+        <a href="tel:112" style="color:inherit;text-decoration:none;" aria-label="Chiama il 112">
+            <span class="numero-112">112</span>
+        </a>
+        <div class="label-sotto">Numero Unico Emergenze (NUE) — Gratuito 24h/24</div>
+        <a href="tel:112" class="btn-chiama-112">📞 Chiama ora il 112</a>
+    </div>
+    
+    <h2 class="section-title">📋 Numeri utili</h2>
+    <ul class="numeri-list" id="numeri-list" aria-label="Numeri utili locali"></ul>
+    
+    <h2 class="section-title">📄 Piano di emergenza</h2>
+    <a href="" id="btn-piano-pdf" class="btn-piano-pdf" download>
+        📄 Scarica il Piano di Emergenza Comunale (PDF)
+    </a>
+    
+    <h2 class="section-title">✅ Cosa fare adesso</h2>
+    <ol class="cosa-fare-list" id="cosa-fare-list" aria-label="Istruzioni di comportamento in emergenza"></ol>
+    
+    <h2 class="section-title">🔗 Link essenziali</h2>
+    <nav class="links-list" id="links-list" aria-label="Link alle sezioni principali del sito"></nav>
+
+    <a href="/" class="back-home" id="btn-back">← Torna al sito completo</a>
+
+    <footer class="page-footer" id="page-footer"></footer>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ── Utility ──────────────────────────────────────────────────────
+    function isPlaceholder(v) { return !v || v.indexOf('{{') !== -1; }
+    function toTel(n)          { return n.replace(/[^0-9+]/g, ''); }
+
+    var homeBase = isPlaceholder(CFG.urlHome) ? '/' : CFG.urlHome;
+
+    // ── Colori brand → CSS custom properties ─────────────────────────
+    if (CFG.colorePrimario)  document.documentElement.style.setProperty('--primary',   CFG.colorePrimario);
+    if (CFG.coloreAccento)   document.documentElement.style.setProperty('--accent',    CFG.coloreAccento);
+    if (CFG.coloreEmergenza) {
+        document.documentElement.style.setProperty('--emergency', CFG.coloreEmergenza);
+        document.getElementById('theme-color-meta').setAttribute('content', CFG.coloreEmergenza);
+    }
+
+    var btnPdf = document.getElementById('btn-piano-pdf');
+    if (btnPdf) {
+        if (!isPlaceholder(CFG.pianoPDF) && CFG.pianoPDF) {
+            btnPdf.setAttribute('href', CFG.pianoPDF);
+        } else {
+            btnPdf.style.display = 'none';  // nasconde se non configurato
+        }
+    }
+    // ── Meta pagina ───────────────────────────────────────────────────
+    var comune    = isPlaceholder(CFG.nomeComune)     ? '' : CFG.nomeComune;
+    var prov      = isPlaceholder(CFG.siglaProvincia) ? '' : CFG.siglaProvincia;
+    var suffisso  = comune ? ' di ' + comune : '';
+    var parentesi = (comune && prov) ? ' (' + prov + ')' : '';
+    document.getElementById('page-heading').textContent =
+    'Pagina di emergenza — ' + CFG.nomeEnte + suffisso;
+    document.querySelector('.badge-lite').textContent =
+    'PROTEZIONE CIVILE' + (comune ? ' ' + comune.toUpperCase() : '') + ' · Pagina di Emergenza';
+    document.getElementById('page-title').textContent =
+        'Emergenza — ' + CFG.nomeEnte + suffisso;
+    document.getElementById('page-desc').setAttribute('content',
+        'Pagina di emergenza' + suffisso + '. Numeri utili, cosa fare e link essenziali. Ultra-leggera per rete debole.');
+
+    var canonical = isPlaceholder(CFG.urlCanonical) ? window.location.href : CFG.urlCanonical;
+    var linkCan = document.createElement('link');
+    linkCan.rel  = 'canonical';
+    linkCan.href = canonical;
+    document.head.appendChild(linkCan);
+
+    document.getElementById('intro-ente').innerHTML =
+        '⚡ <strong>Pagina ultra-leggera</strong> per emergenze e rete debole. ' +
+        'Per il sito completo: <a href="' + homeBase + '">homepage</a>.';
+    document.getElementById('link-torna').setAttribute('href', homeBase);
+    document.getElementById('btn-back').setAttribute('href',   homeBase);
+
+    function addEmergencyBypass(url) {
+        var hash = '';
+        var hashIndex = url.indexOf('#');
+        if (hashIndex !== -1) {
+            hash = url.slice(hashIndex);
+            url = url.slice(0, hashIndex);
+        }
+        var separator = url.indexOf('?') === -1 ? '?' : '&';
+        return url + separator + 'emergency_bypass=1' + hash;
+    }
+
+    // ── Propaga il bypass ai link interni del sito ────────────────────
+    document.addEventListener('click', function (e) {
+        var a = e.target.closest('a');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('tel:') || href.startsWith('mailto:')) return;
+
+        var linkUrl;
+        try {
+            linkUrl = new URL(href, window.location.href);
+        } catch (error) {
+            return;
+        }
+
+        if (linkUrl.origin === window.location.origin) {
+            e.preventDefault();
+            window.bandaCheckOptOut(addEmergencyBypass(linkUrl.pathname + linkUrl.search + linkUrl.hash));
+        }
+    });
+
+    // ── Numeri utili ──────────────────────────────────────────────────
+    var nl = document.getElementById('numeri-list');
+    CFG.numeriUtili.forEach(function (n) {
+        if (isPlaceholder(n.numero)) return;
+        var tel = toTel(n.numero);
+        var li  = document.createElement('li');
+        li.innerHTML =
+            '<span class="label">'  + n.label  + '</span>' +
+            '<span class="numero" data-tel="' + tel + '">' + n.numero + '</span>' +
+            '<a class="btn-call" href="tel:' + tel + '">📞 Chiama</a>';
+        nl.appendChild(li);
+    });
+
+    // ── Cosa fare ─────────────────────────────────────────────────────
+    var cf = document.getElementById('cosa-fare-list');
+    CFG.cosaFare.forEach(function (p) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span>' + p.testo + '</span>';
+        cf.appendChild(li);
+    });
+
+    // ── Link essenziali ───────────────────────────────────────────────
+    var ll = document.getElementById('links-list');
+    CFG.links.forEach(function (l) {
+        if (isPlaceholder(l.url)) return;
+        var a = document.createElement('a');
+        a.href = l.url;
+        if (l.esterno) {
+            a.target = '_blank';
+            a.rel    = 'noopener noreferrer';
+            a.setAttribute('aria-label', l.label + ' (collegamento esterno, apre in una nuova scheda)');
+        }
+        a.innerHTML =
+            '<span class="icon" aria-hidden="true">' + l.icon + '</span>' +
+            '<span>' + l.label + (l.esterno ? ' <span class="ext-badge">↗</span>' : '') + '</span>' +
+            '<span class="arrow" aria-hidden="true">›</span>';
+        ll.appendChild(a);
+    });
+
+    // ── Footer ────────────────────────────────────────────────────────
+    var anno  = new Date().getFullYear();
+    var email = isPlaceholder(CFG.emailPrimaria)
+        ? ''
+        : ' · <a href="mailto:' + CFG.emailPrimaria + '">' + CFG.emailPrimaria + '</a>';
+    document.getElementById('page-footer').innerHTML =
+        '© ' + anno + ' — ' + CFG.nomeEnte + suffisso + parentesi + email + '<br>' +
+        'Versione ultra-leggera · <a href="' + homeBase + '">Sito completo</a>';
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+.alert-bar { display: none; }
+
+/* ── LAYOUT BASE & VARIABILI ────────────────────────────── */
+:root {
+    --sidebar-width: 240px;
+}
+
+
+/* ── SIDEBAR (DESKTOP) ──────────────────────────────────── */
+.sidebar {
+    background: var(--pc-dark);
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: var(--sidebar-width);
+    position: fixed;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    overflow-y: auto;
+    box-shadow: 4px 0 16px rgba(0,0,0,.15);
+}
+
+
+.sidebar-brand {
+    background: var(--pc-blue);
+    padding: 1.2rem 1.4rem;
+    border-bottom: 3px solid var(--pc-yellow);
+}
+
+.sidebar-brand h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    letter-spacing: .04em;
+}
+
+.sidebar-brand small {
+    color: var(--pc-yellow);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.sidebar-nav { 
+    padding: 1.2rem 0; 
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .7rem 1.4rem;
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .92rem;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.sidebar-nav a i {
+    font-size: 1.1rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: rgba(255,255,255,.06);
+    color: var(--pc-yellow);
+    padding-left: 1.6rem;
+}
+
+.sidebar-nav .nav-section {
+    display: block;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.3);
+    padding: 1.2rem 1.4rem .4rem;
+    font-weight: 700;
+}
+
+.sidebar-nav .logout-link { 
+    color: #ff7878 !important; 
+}
+
+.sidebar-nav .logout-link:hover {
+    color: #ff4d4d !important;
+    background: rgba(255,50,50,.08) !important;
+}
+
+/* ── SESSION BLOCK & DROPDOWN ───────────────────────────── */
+.session-block {
+    margin: 0 1.4rem .4rem;
+    padding: .7rem .9rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+}
+.session-block:hover {
+    background: rgba(255,255,255,.08);
+}
+
+.session-dropdown {
+    display: none;
+    margin: 0 1.4rem .6rem;
+    background: #1a2535;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+}
+
+.session-dropdown-role {
+    padding: .45rem .9rem;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.35);
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.session-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .6rem .9rem;
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 600;
+    transition: background .15s, color .15s;
+    border-radius: 0;
+}
+.session-dropdown a:hover,
+.session-dropdown a.active {
+    background: rgba(255,255,255,.06);
+    color: var(--pc-yellow);
+    padding-left: .9rem; /* no shift per il dropdown */
+}
+
+.session-dropdown-logout {
+    color: #ff7878 !important;
+    border-top: 1px solid rgba(255,255,255,.07);
+}
+.session-dropdown-logout:hover {
+    background: rgba(255,80,80,.1) !important;
+    color: #ff4d4d !important;
+}
+
+#sessionChevron.open {
+    transform: rotate(180deg);
+}
+
+/* ── MAIN CONTENT CONTROLLER ────────────────────────────── */
+.main-content { 
+    margin-left: var(--sidebar-width); 
+    padding: 2rem; 
+    min-height: 100vh;
+}
+
+/* ── COMPONENTI INTERFACCIA (TOPBAR & CARDS) ────────────── */
+.topbar {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,.03);
+}
+
+.topbar h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--pc-blue);
+    margin: 0;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.03);
+    border-left: 4px solid var(--pc-blue);
+}
+.stat-card.yellow { border-left-color: var(--pc-yellow); }
+.stat-card.green  { border-left-color: #10b981; }
+.stat-card h3 { font-size: 2rem; font-weight: 800; color: var(--pc-blue); margin: 0; }
+.stat-card p  { font-size: .8rem; color: #64748b; margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ── TABELLA ADM ────────────────────────────────────────── */
+.admin-table-wrap {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.03);
+    overflow: hidden;
+}
+.admin-table-wrap .table { margin: 0; }
+.admin-table-wrap thead th {
+    background: var(--pc-blue);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    border: none;
+    padding: 1rem;
+}
+.admin-table-wrap tbody tr { transition: background .15s; }
+.admin-table-wrap tbody tr:hover { background: #f8fafc; }
+.admin-table-wrap td {
+    vertical-align: middle;
+    border-color: #f1f5f9;
+    padding: .85rem 1rem;
+}
+
+.news-thumb {
+    width: 60px; height: 42px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #e2e8f0;
+}
+.news-thumb-placeholder {
+    width: 60px; height: 42px;
+    border-radius: 6px;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.btn-action {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    transition: all .2s;
+    cursor: pointer;
+}
+.btn-action:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,.1); }
+
+.user-status-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    min-width: 120px;
+    min-height: 34px;
+    padding: .3rem .55rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: .78rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.user-status-toggle.is-active {
+    color: #146c43;
+    background: #d1e7dd;
+    border-color: #a3cfbb;
+}
+
+.user-status-toggle.is-disabled {
+    color: #5c6773;
+    background: #e9ecef;
+    border-color: #ced4da;
+}
+
+.user-status-toggle:hover,
+.user-status-toggle:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(15, 35, 55, .14);
+}
+
+.user-status-toggle:focus-visible {
+    outline: 3px solid var(--pc-yellow);
+    outline-offset: 2px;
+}
+
+.user-status-toggle__action {
+    margin-left: .15rem;
+    font-size: .72rem;
+    opacity: .65;
+}
+
+/* ── COMPORTAMENTO MOBILE (RIMESSA IN WRAPPER NORMALE) ──── */
+@media (max-width: 768px) {
+    /* Trasforma la sidebar in un blocco/wrapper standard sopra il contenuto */
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        overflow-y: visible;
+        box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+
+    .sidebar-brand {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    /* Dispone sessione, logout e sincronizzazione in modo pulito */
+    .sidebar-nav {
+        padding: 0.8rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Riposiziona il box utente della sessione attiva */
+    .sidebar-nav div.px-4 {
+        margin: 0 !important;
+        padding: 0.6rem 1rem !important;
+    }
+
+    /* Nasconde completamente le voci e i titoli di "Contenuti" non necessari */
+    .sidebar-nav .nav-section,
+    .sidebar-nav a[href="news.php"],
+    .sidebar-nav a[href="news_edit.php"],
+    .sidebar-nav hr {
+        display: none !important;
+    }
+
+    /* Mantiene e formatta solo i link richiesti (Sync e Logout) */
+    .sidebar-nav a {
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .sidebar-nav a:hover {
+        padding-left: 1rem;
+    }
+
+    /* Ripristina il flusso normale del contenuto senza scostamenti fissi */
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .topbar .d-flex {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .stat-card h3 {
+        font-size: 1.5rem;
+    }
+}

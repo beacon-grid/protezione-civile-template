@@ -1,0 +1,35 @@
+# Protezione Civile Comunale - robots.txt
+# Questo file regola l'accesso dei crawler ai contenuti del sito
+
+# Consenti a tutti i crawler
+User-agent: *
+Allow: /
+
+# Disallow admin e aree sensibili
+Disallow: /admin/
+Disallow: /data/
+Disallow: /includes/
+Disallow: /*.json$
+Disallow: /test*
+
+# Segnala sitemap
+Sitemap: https://protezionecivile.comune.esempio.provincia.it/sitemap.xml
+
+# Crawl-delay: consenti crawl frequente (news aggiornate settimanalmente)
+Crawl-delay: 0
+
+# Specifiche per Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /data/
+Disallow: /includes/
+Crawl-delay: 0
+
+# Specifiche per Bingbot
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /data/
+Disallow: /includes/
+Crawl-delay: 1

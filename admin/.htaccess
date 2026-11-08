@@ -1,0 +1,8 @@
+# Blocca accesso diretto ai file helper
+<FilesMatch "^(auth|news_helper|glossario_helper)\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Nessuna directory listing
+Options -Indexes

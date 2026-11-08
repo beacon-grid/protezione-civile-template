@@ -1,0 +1,618 @@
+/* ── Mappa ───────────────────────────────────────────── */
+#map-pc {
+    height: 520px;
+    width: 100%;
+    z-index: 1;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Toolbar tipo sopra la mappa */
+.map-toolbar {
+    background: var(--pc-blue);
+    border-radius: 12px 12px 0 0;
+    padding: .6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+.map-filter-btn {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.22);
+    color: #fff;
+    border-radius: 20px;
+    padding: .25rem .85rem;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: all .18s;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+.map-filter-btn:hover,
+.map-filter-btn.active {
+    background: rgba(255,255,255,.28);
+    border-color: rgba(255,255,255,.5);
+}
+.map-filter-btn .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Marker personalizzati */
+.custom-marker {
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 3px solid rgba(0,0,0,.18);
+    box-shadow: 0 3px 10px rgba(0,0,0,.3);
+}
+.custom-marker-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #fff;
+}
+
+/* Popup */
+.leaflet-popup-content-wrapper {
+    border-radius: 10px !important;
+    padding: 0 !important;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18) !important;
+    border: none !important;
+    min-width: 220px;
+}
+.leaflet-popup-content {
+    margin: 0 !important;
+    width: auto !important;
+}
+.popup-header {
+    padding: .6rem .9rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: #fff;
+}
+.popup-body {
+    padding: .5rem .9rem .7rem;
+    font-size: .82rem;
+    color: #374151;
+    background: #fff;
+}
+.popup-body p { margin: 0; }
+.leaflet-popup-tip { display: none; }
+.leaflet-popup-close-button {
+    color: rgba(255,255,255,.8) !important;
+    font-size: 18px !important;
+    top: 4px !important; right: 6px !important;
+}
+
+/* Legenda laterale */
+.map-legend {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+.map-legend-header {
+    background: var(--pc-blue);
+    color: #fff;
+    padding: .75rem 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+.map-legend-body { padding: .75rem; }
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .55rem .65rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+    border: 1px solid transparent;
+    margin-bottom: .3rem;
+    text-decoration: none;
+    color: inherit;
+}
+.legend-item:hover {
+    background: #f0f5ff;
+    border-color: #dbe6ff;
+    color: inherit;
+}
+.legend-item:last-child { margin-bottom: 0; }
+
+.legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+.legend-item-text strong {
+    display: block;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.legend-item-text small {
+    font-size: .72rem;
+    color: #64748b;
+}
+
+.legend-section-title {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #94a3b8;
+    padding: .5rem .65rem .2rem;
+}
+
+.map-tip {
+    background: #f8faff;
+    border-top: 1px solid #e2e8f0;
+    padding: .6rem .75rem;
+    font-size: .72rem;
+    color: #64748b;
+    text-align: center;
+}
+/* ── Popup azioni (minimal) ───────────────────────── */
+.popup-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.popup-btn-primary {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    min-height: 40px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--pc-blue, #0b5ed7);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.popup-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: #f1f3f5;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.popup-btn-primary:hover { filter: brightness(0.9); }
+.popup-btn-icon:hover { background: #e9ecef; }
+
+.popup-btn-primary:focus-visible,
+.popup-btn-icon:focus-visible,
+.legend-print-btn:focus-visible {
+    outline: 3px solid #0b5ed7;
+    outline-offset: 2px;
+}
+
+/* ── Mappa screenshot nella scheda stampabile ─────── */
+.ps-map {
+    margin: 16px 0;
+    text-align: center;
+}
+.ps-map img {
+    max-width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    display: none;
+}
+
+.print-sheet .ps-map-frame {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    line-height: 0;
+}
+
+.print-sheet .ps-map-legend {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 0.6rem;
+    line-height: 1.35;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+
+.print-sheet .ps-map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    color: #1a1a1a;
+}
+.print-sheet .ps-map-legend-item:not(:last-child) {
+    margin-bottom: 3px;
+}
+
+.print-sheet .ps-legend-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+.print-sheet .ps-legend-star {
+    background: #D62828;
+}
+.print-sheet .ps-legend-star-pl {
+    background: var(--pc-blue, #0b5ed7);
+}
+@media print {
+    .print-sheet .ps-map img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+}
+
+/* ── QR container nel popup ───────────────────────── */
+.popup-qr {
+    display: none;
+    margin-top: 8px;
+    text-align: center;
+}
+.popup-qr.show { display: block; }
+.popup-qr img, .popup-qr canvas {
+    border: 4px solid #fff;
+    border-radius: 4px;
+}
+
+/* ── Toolbar: bottone geolocalizzazione ───────────── */
+.map-filter-btn.geo {
+    background: #1A7A3C;
+}
+.map-filter-btn.geo[aria-pressed="true"] {
+    background: #145c2d;
+}
+
+/* ── Marker posizione utente ──────────────────────── */
+.user-location-marker {
+    width: 20px;
+    height: 20px;
+    background: #1a73e8;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(26,115,232,.3), 0 1px 4px rgba(0,0,0,.4);
+}
+
+/* ── Banner distanza punto piu' vicino ────────────── */
+.nearest-point-banner {
+    background: #1A7A3C;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nearest-point-banner a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.nearest-point-banner .close-banner {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nearest-point-banner .close-banner:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+/* ── Legenda: riga con bottone stampa ─────────────── */
+.legend-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.legend-row .legend-item {
+    flex: 1;
+}
+
+.legend-print-btn {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #f1f3f5;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    cursor: pointer;
+}
+.legend-print-btn:hover { background: #e9ecef; }
+
+/* ── Stampa scheda punto ──────────────────────────── */
+.print-sheet { display: none; }
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Rimuove dal FLUSSO (non solo dalla vista) tutto il resto della pagina */
+    header,
+    footer,
+    #mappa-territorio,
+    .offline-indicator,
+    #sr-announce {
+        display: none !important;
+    }
+
+    .print-sheet {
+        display: block !important;
+        position: static;      /* non più absolute: ora e' l'unico contenuto */
+        width: 100%;
+        padding: 0;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color: #1a1a1a;
+    }
+    body * { visibility: hidden; }
+    .print-sheet, .print-sheet * { visibility: visible; }
+
+    .print-sheet {
+        display: block !important;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        padding: 0;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color: #1a1a1a;
+    }
+
+    /* ── Header con fascia colorata ───────────────── */
+    .print-sheet .ps-header {
+        background: var(--pc-blue, #0b5ed7);
+        color: #fff;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .print-sheet .ps-header-text {
+        flex: 1;
+    }
+
+    .print-sheet .ps-eyebrow {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        opacity: 0.85;
+        margin: 0 0 4px;
+    }
+
+    .print-sheet h2 {
+        color: #fff !important;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .print-sheet .ps-badge {
+        background: rgba(255,255,255,.18);
+        border: 1px solid rgba(255,255,255,.4);
+        border-radius: 6px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+    }
+
+    /* ── Corpo contenuto ───────────────────────────── */
+    .print-sheet .ps-content {
+        padding: 16px 24px;
+    }
+
+    /* ── Mappa ─────────────────────────────────────── */
+    .print-sheet .ps-map {
+        margin: 0 0 20px;
+        text-align: center;
+        page-break-inside: avoid;
+    }
+    .print-sheet .ps-map img {
+        max-width: 100%;
+        border: 1px solid #d0d7de;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+
+    /* ── Griglia info ──────────────────────────────── */
+    .print-sheet .ps-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+
+    .print-sheet .ps-info-card {
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid var(--pc-blue, #0b5ed7);
+        border-radius: 6px;
+        padding: 10px 14px;
+        background: #f8faff;
+    }
+
+    #print-sheet .pc-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        flex-shrink: 0;
+
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border: 1px solid #dbe3ea;
+        border-radius: 14px;
+        padding: 6px;
+
+        box-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.08),
+            0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .print-sheet .ps-info-card.full {
+        grid-column: 1 / -1;
+    }
+
+    .print-sheet .ps-info-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        margin: 0 0 2px;
+    }
+
+    .print-sheet .ps-info-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    /* ── Sezione QR ────────────────────────────────── */
+    .print-sheet .ps-qr-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
+        page-break-inside: avoid;
+    }
+
+    .print-sheet .ps-qr {
+        margin: 0;
+        flex-shrink: 0;
+        line-height: 0;
+    }
+
+    .print-sheet .ps-qr-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: #374151;
+    }
+
+    .print-sheet .ps-qr-text strong {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+        color: #1a1a1a;
+    }
+
+    /* ── Footer ────────────────────────────────────── */
+    .print-sheet .ps-footer {
+        margin-top: 4px;
+        padding-top: 4px;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.72rem;
+        color: #94a3b8;
+        text-align: center;
+    }
+
+    /* Nasconde elementi non necessari in stampa */
+    @page {
+        size: A4;
+        margin: 0;
+    }
+}
+
+/* ── Offline indicator ────────────────────────────── */
+.offline-indicator {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 1000;
+    background: #D62828;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.offline-indicator.show { display: block; }
+
+/* ── Sr-only per annunci screen reader ────────────── */
+.sr-only-announce {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}

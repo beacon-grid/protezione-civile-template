@@ -1,0 +1,495 @@
+/* ════════════════════════════════════════════════════════════
+   1. VARIABILI
+   (--pc-yellow e altre eventuali variabili non definite qui
+   provengono dal foglio di stile principale del sito)
+   ════════════════════════════════════════════════════════════ */
+:root {
+    --primary: #005baa;
+    --secondary: #ff9900;
+    --bg: #f3f6fa;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #d9e2ec;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   2. CONTENITORE PRINCIPALE
+   ════════════════════════════════════════════════════════════ */
+.emergency-container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px;
+    color: var(--text);
+}
+
+.emergency-container *,
+.emergency-container *::before,
+.emergency-container *::after {
+    box-shadow: none;
+}
+
+.intro-block {
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   3. CARD GENERICHE
+   ════════════════════════════════════════════════════════════ */
+.card-emergency {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border);
+}
+
+.card-emergency h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--bg);
+    padding-bottom: 8px;
+}
+
+.card-emergency h3 {
+    color: var(--primary);
+    font-size: 1.05rem;
+    margin: 20px 0 10px;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   4. GRIGLIA E CAMPI DEL FORM
+   ════════════════════════════════════════════════════════════ */
+.grid-emergency {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.field-emergency {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-emergency label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+.field-emergency input,
+.field-emergency textarea,
+.field-emergency select {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 13px;
+    font-size: 15px;
+    font-family: inherit;
+    background: white;
+    color: var(--text);
+}
+
+.field-emergency textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.field-emergency input:focus,
+.field-emergency textarea:focus,
+.field-emergency select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 91, 170, .12) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   5. COMPONENTI DELLA FAMIGLIA (member-box)
+   ════════════════════════════════════════════════════════════ */
+.member-box {
+    border: 1px dashed #c7d2e0;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 15px;
+    background: #fafcff;
+    position: relative;
+}
+
+.remove-member-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.remove-member-btn:hover {
+    background: #fca5a5;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   6. PULSANTI E AZIONI
+   ════════════════════════════════════════════════════════════ */
+.actions-emergency {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn-emergency {
+    border: none;
+    cursor: pointer;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-emergency.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-emergency.secondary-btn {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-emergency.accent-btn {
+    background: var(--secondary);
+    color: #111;
+}
+
+.btn-emergency:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   7. CHECKLIST (kit di emergenza + checklist finale)
+   ════════════════════════════════════════════════════════════ */
+.checklist-emergency {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.check-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    background: #fafcff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.check-item input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Evidenzia le voci della checklist finale non ancora spuntate prima della stampa */
+.check-item-missing {
+    outline: 2px solid #e53935;
+    outline-offset: 3px;
+    border-radius: 6px;
+    background: rgba(229, 57, 53, 0.06);
+    animation: check-item-pulse 1.4s ease-in-out 2;
+}
+
+@keyframes check-item-pulse {
+    0%, 100% { background: rgba(229, 57, 53, 0.06); }
+    50%      { background: rgba(229, 57, 53, 0.16); }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   8. BOX INFORMATIVI E LISTE DI CONSIGLI
+   ════════════════════════════════════════════════════════════ */
+.info-box-emergency {
+    background: #fff7e8;
+    border-left: 5px solid var(--secondary);
+    padding: 18px;
+    border-radius: 14px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.advice-list {
+    padding-left: 20px;
+    margin: 8px 0;
+}
+
+.advice-list li {
+    margin-bottom: 6px;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   9. BARRA DI SCORRIMENTO PAGINA
+   Striscia fissa in cima allo schermo, indica quanto si è scrollato
+   ════════════════════════════════════════════════════════════ */
+.scroll-progress-bar {
+    position: fixed;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: var(--pc-yellow);
+    z-index: 9999;
+    transition: width 0.12s ease-out;
+    pointer-events: none;
+    border-radius: 0 0 6px 6px;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   10. PANNELLO DI COMPLETAMENTO CAMPI
+   Barra orizzontale su mobile/tablet, anello circolare (sidebar
+   fissa a sinistra) su schermi grandi — vedi media query sotto
+   ════════════════════════════════════════════════════════════ */
+.progress-container {
+    margin: 16px 0 24px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 12px;
+    background: #eceff1;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff9800, #4caf50);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+/* Vista ad anello, usata solo nella versione "barra laterale" su schermi grandi */
+.progress-ring-view {
+    display: none;
+    text-align: center;
+}
+
+.progress-ring {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 calc(var(--percent, 0) * 1%), #eceff1 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.progress-ring-inner {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #333;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.progress-ring-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.25;
+}
+
+/* Su schermi grandi: il pannello diventa una barra laterale fissa a sinistra,
+   mentre la barra in cima alla pagina resta dedicata allo scorrimento */
+@media (min-width: 1500px) {
+    .progress-container {
+        position: fixed;
+        top: 140px;
+        left: 24px;
+        width: 140px;
+        z-index: 500;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        padding: 16px 10px;
+    }
+
+    .progress-bar-view { display: none; }
+    .progress-ring-view { display: block; }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   11. INTESTAZIONE DI STAMPA
+   Markup presente nella pagina ma nascosto a schermo: compare
+   solo con @media print (vedi sezione 12)
+   ════════════════════════════════════════════════════════════ */
+.print-header {
+    display: none;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   12. STAMPA — SUPER-OTTIMIZZAZIONE COSTRITTIVA
+   Isola il piano di emergenza da tutto il resto della pagina
+   (header, nav, footer del sito) e lo formatta per la carta
+   ════════════════════════════════════════════════════════════ */
+@media print {
+
+    /* 12.1 — Nasconde tutto il contenuto del body della pagina originale */
+    body > * {
+        display: none !important;
+    }
+
+    /* 12.2 — Mostra solo il contenitore del piano di emergenza */
+    body > .emergency-container {
+        display: block !important;
+        visibility: visible !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: white !important;
+        color: black !important;
+    }
+
+    .emergency-container * {
+        visibility: visible;
+    }
+
+    /* 12.3 — Intestazione di stampa ufficiale */
+    .print-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 3px solid #005baa;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .print-header-logo img {
+        height: 75px;
+        width: auto;
+    }
+
+    .print-header-title {
+        text-align: right;
+        flex-grow: 1;
+        padding-left: 20px;
+    }
+
+    .print-header-title h1 {
+        font-size: 1.6rem !important;
+        font-weight: 800 !important;
+        color: #005baa !important;
+        margin: 0 0 4px 0 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .print-header-title h2 {
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        color: #ff9900 !important;
+        margin: 0 0 4px 0 !important;
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+
+    .print-subtitle {
+        font-size: 0.8rem !important;
+        color: #475569 !important;
+        margin: 0 !important;
+        font-style: italic;
+    }
+
+    /* 12.4 — Nasconde gli elementi superflui in stampa (pulsanti, azioni, UI a schermo) */
+    .actions-emergency,
+    .remove-member-btn,
+    .d-print-none {
+        display: none !important;
+    }
+
+    /* 12.5 — Nasconde i placeholder: non devono intralciare chi compila a mano */
+    input::placeholder,
+    textarea::placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+    }
+
+    /* 12.6 — Formattazione pulita per la carta */
+    .card-emergency {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        page-break-inside: avoid;
+        padding: 18px !important;
+        margin-bottom: 16px !important;
+        background: white !important;
+    }
+
+    .field-emergency input,
+    .field-emergency textarea,
+    .field-emergency select {
+        border: none !important;
+        border-bottom: 1px solid #94a3b8 !important;
+        border-radius: 0 !important;
+        padding: 5px 0 !important;
+        background: transparent !important;
+    }
+
+    .member-box {
+        border: 1px dashed #94a3b8 !important;
+        background: transparent !important;
+    }
+
+    .check-item {
+        border: 1px solid #cbd5e1 !important;
+        background: transparent !important;
+    }
+}

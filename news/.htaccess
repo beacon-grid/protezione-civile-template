@@ -1,0 +1,14 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+
+# 1. Se la richiesta è un file vero o una cartella vera, non toccarla
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 2. ESCLUSIONE CRUCIALE: Se l'utente richiede esplicitamente detail.php, fermati e non riscivere
+RewriteRule ^detail\.php$ - [L]
+
+# 3. Regola per gli URL puliti (es: /news/178029626729 mapped to detail.php?id=178029626729)
+RewriteRule ^([\w-]+)$ detail.php?id=$1 [QSA,NC,L]

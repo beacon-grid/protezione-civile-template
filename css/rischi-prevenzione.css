@@ -1,0 +1,143 @@
+/* Styles for prevention modals */
+
+/* ---------- modalKit ---------- */
+#modalKit .modal-dialog { max-width: 860px; }
+#modalKit .modal-content { border-radius: 16px; overflow: hidden; border: none; }
+#modalKit .mk-header { background: #0f2444; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+#modalKit .mk-header-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 10px; }
+#modalKit .mk-header-badge { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); }
+#modalKit .mk-body { display: flex; max-height: 78vh; overflow: hidden; }
+#modalKit .mk-sidebar { width: 200px; flex-shrink: 0; background: #f4f6fb; border-right: 1px solid #e2e8f0; padding: 1.25rem 0; overflow-y: auto; }
+#modalKit .mk-sidebar-section { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #94a3b8; padding: 0.75rem 1.25rem 0.25rem; }
+#modalKit .mk-nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0.55rem 1.25rem; background: transparent; border: none; border-left: 3px solid transparent; font-size: 0.85rem; color: #475569; cursor: pointer; text-align: left; transition: background 0.12s, color 0.12s, border-color 0.12s; line-height: 1.3; }
+#modalKit .mk-nav-btn:hover { background: #e8edf7; color: #1e3a6e; }
+#modalKit .mk-nav-btn.active { background: #e8edf7; color: #1e3a6e; font-weight: 600; border-left-color: #1e3a6e; }
+#modalKit .mk-nav-btn i { font-size: 1rem; flex-shrink: 0; opacity: 0.7; }
+#modalKit .mk-nav-btn.active i { opacity: 1; }
+#modalKit .mk-content { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 2rem; background: #ffffff; }
+#modalKit .mk-section { display: none; }
+#modalKit .mk-section.active { display: block; }
+#modalKit .mk-section-title { font-size: 1.05rem; font-weight: 700; color: #0f2444; margin: 0 0 0.25rem; display: flex; align-items: center; gap: 8px; }
+#modalKit .mk-section-sub { font-size: 0.85rem; color: #64748b; margin: 0 0 1.5rem; line-height: 1.5; }
+#modalKit .mk-kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+#modalKit .mk-kit-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.82rem; color: #334155; line-height: 1.5; }
+#modalKit .mk-kit-item strong { display: block; color: #0f2444; font-weight: 600; margin-bottom: 2px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+#modalKit .mk-alert { border-radius: 10px; padding: 0.85rem 1rem; font-size: 0.82rem; display: flex; gap: 10px; align-items: flex-start; margin-top: 1rem; }
+#modalKit .mk-alert-danger { background: #fff5f5; border: 1px solid #fecaca; color: #7f1d1d; }
+#modalKit .mk-alert-info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a5f; }
+#modalKit .mk-alert-muted { background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; font-style: italic; font-size: 0.78rem; text-align: center; display: block; }
+#modalKit .mk-alert i { flex-shrink: 0; margin-top: 1px; }
+#modalKit .mk-overview-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem; }
+#modalKit .mk-overview-table th { background: #0f2444; color: #ffffff; padding: 8px 12px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: left; }
+#modalKit .mk-overview-table th:first-child { border-radius: 8px 0 0 0; }
+#modalKit .mk-overview-table th:last-child  { border-radius: 0 8px 0 0; }
+#modalKit .mk-overview-table td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; color: #334155; vertical-align: top; }
+#modalKit .mk-overview-table tr:last-child td { border-bottom: none; }
+#modalKit .mk-overview-table tr:nth-child(even) td { background: #f8fafc; }
+#modalKit .mk-kit-label { font-weight: 700; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+#modalKit .mk-water-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem; }
+#modalKit .mk-water-table th { background: #1e3a6e; color: #ffffff; padding: 8px 12px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; }
+#modalKit .mk-water-table th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+#modalKit .mk-water-table th:last-child  { border-radius: 0 8px 0 0; background: #0f2444; }
+#modalKit .mk-water-table td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; text-align: center; color: #334155; }
+#modalKit .mk-water-table td:first-child { text-align: left; font-weight: 600; color: #0f2444; }
+#modalKit .mk-water-table td:last-child { background: #eff6ff; font-weight: 700; color: #1e3a6e; }
+#modalKit .mk-water-table tr:last-child td { border-bottom: none; }
+#modalKit .mk-special-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem; }
+#modalKit .mk-special-table th { background: #f1f5f9; color: #475569; padding: 8px 12px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: left; border-bottom: 2px solid #e2e8f0; }
+#modalKit .mk-special-table td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; color: #475569; vertical-align: top; }
+#modalKit .mk-special-table td:first-child { font-weight: 600; color: #334155; white-space: nowrap; }
+#modalKit .mk-special-table tr:last-child td { border-bottom: none; }
+#modalKit .mk-season-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1rem; }
+#modalKit .mk-season-card { border-radius: 10px; padding: 1rem; font-size: 0.82rem; }
+#modalKit .mk-season-card.winter { background: #eff6ff; border: 1px solid #bfdbfe; }
+#modalKit .mk-season-card.summer { background: #fff7ed; border: 1px solid #fed7aa; }
+#modalKit .mk-season-card .mk-season-title { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+#modalKit .mk-season-card.winter .mk-season-title { color: #1e3a6e; }
+#modalKit .mk-season-card.summer .mk-season-title { color: #92400e; }
+#modalKit .mk-season-card ul { margin: 0; padding-left: 1.1rem; color: #475569; line-height: 1.6; }
+#modalKit .mk-tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+#modalKit .mk-tip { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.82rem; color: #475569; line-height: 1.5; display: flex; gap: 8px; }
+#modalKit .mk-tip i { flex-shrink: 0; color: #64748b; margin-top: 1px; }
+#modalKit .mk-maintenance-box { background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 12px; padding: 1.25rem 1.5rem; }
+#modalKit .mk-maintenance-box p { font-size: 0.85rem; color: #334155; margin: 0 0 0.75rem; line-height: 1.6; }
+#modalKit .mk-maintenance-tip { font-size: 0.82rem; font-weight: 600; color: #1e3a6e; display: flex; align-items: flex-start; gap: 8px; }
+#modalKit .mk-footer { padding: 1rem 2rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; }
+#modalKit .mk-btn-close { background: #1e3a6e; color: #ffffff; border: none; border-radius: 8px; padding: 8px 20px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+#modalKit .mk-btn-close:hover { background: #0f2444; }
+#modalKit .mk-content::-webkit-scrollbar, #modalKit .mk-sidebar::-webkit-scrollbar { width: 4px; }
+#modalKit .mk-content::-webkit-scrollbar-track, #modalKit .mk-sidebar::-webkit-scrollbar-track { background: transparent; }
+#modalKit .mk-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+#modalKit .mk-sidebar::-webkit-scrollbar-thumb { background: #dde3ed; border-radius: 4px; }
+@media (max-width: 640px) { #modalKit .mk-body { flex-direction: column; max-height: 85vh; } #modalKit .mk-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e2e8f0; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 4px; overflow-x: auto; overflow-y: visible; } #modalKit .mk-sidebar-section { display: none; } #modalKit .mk-nav-btn { width: auto; border-left: none; border-bottom: 2px solid transparent; border-radius: 6px; padding: 0.4rem 0.75rem; font-size: 0.8rem; white-space: nowrap; } #modalKit .mk-nav-btn.active { border-bottom-color: #1e3a6e; background: #e8edf7; } #modalKit .mk-content { padding: 1.25rem; } #modalKit .mk-kit-grid, #modalKit .mk-tips-grid, #modalKit .mk-season-grid { grid-template-columns: 1fr; } #modalKit .mk-overview-table { display: none; } #modalKit .mk-overview-mobile { display: flex !important; flex-direction: column; gap: 10px; margin-bottom: 1rem; } #modalKit .mk-overview-mobile-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem 1rem; font-size: 0.82rem; color: #334155; } #modalKit .mk-overview-mobile-card strong { display: block; color: #0f2444; font-weight: 700; margin-bottom: 6px; font-size: 0.85rem; } #modalKit .mk-overview-mobile-card span { display: block; color: #64748b; font-size: 0.78rem; line-height: 1.5; } }
+
+/* ---------- modalPiano ---------- */
+#modalPiano .modal-dialog { max-width: 680px; }
+#modalPiano .modal-content { border-radius: 16px; overflow: hidden; border: none; }
+#modalPiano .mp-header { background: #0f2444; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+#modalPiano .mp-header-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 10px; }
+#modalPiano .mp-header-badge { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); }
+#modalPiano .mp-body { padding: 2rem; background: #ffffff; overflow-y: auto; max-height: 78vh; overscroll-behavior: contain; }
+#modalPiano .mp-body::-webkit-scrollbar { width: 4px; }
+#modalPiano .mp-body::-webkit-scrollbar-track { background: transparent; }
+#modalPiano .mp-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+#modalPiano .mp-intro { font-size: 0.9rem; color: #475569; line-height: 1.6; margin: 0 0 1.75rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f1f5f9; }
+#modalPiano .mp-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.75rem; }
+#modalPiano .mp-pillar { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem 1rem; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+#modalPiano .mp-pillar-icon { width: 40px; height: 40px; border-radius: 10px; background: #e8edf7; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #1e3a6e; flex-shrink: 0; }
+#modalPiano .mp-pillar h3 { font-size: 0.85rem; font-weight: 700; color: #0f2444; margin: 0; }
+#modalPiano .mp-pillar p { font-size: 0.8rem; color: #64748b; margin: 0; line-height: 1.5; }
+#modalPiano .mp-section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #94a3b8; margin: 0 0 0.75rem; }
+#modalPiano .mp-checklist { list-style: none; padding: 0; margin: 0 0 1.75rem; display: flex; flex-direction: column; gap: 8px; }
+#modalPiano .mp-checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: #334155; line-height: 1.5; }
+#modalPiano .mp-checklist li i { flex-shrink: 0; margin-top: 2px; color: #1e3a6e; font-size: 1rem; }
+#modalPiano .mp-cta { background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; }
+#modalPiano .mp-cta-icon { width: 48px; height: 48px; border-radius: 12px; background: #1e3a6e; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #ffffff; flex-shrink: 0; }
+#modalPiano .mp-cta-text h3 { font-size: 0.9rem; font-weight: 700; color: #0f2444; margin: 0 0 3px; }
+#modalPiano .mp-cta-text p { font-size: 0.8rem; color: #475569; margin: 0 0 0.75rem; line-height: 1.4; }
+#modalPiano .mp-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: #1e3a6e; color: #ffffff; border: none; border-radius: 8px; padding: 7px 16px; font-size: 0.82rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+#modalPiano .mp-cta-btn:hover { background: #0f2444; color: #ffffff; }
+#modalPiano .mp-footer { padding: 1rem 2rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; }
+#modalPiano .mp-btn-close { background: transparent; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; padding: 7px 18px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+#modalPiano .mp-btn-close:hover { background: #f1f5f9; border-color: #94a3b8; }
+@media (max-width: 580px) { #modalPiano .mp-body { padding: 1.25rem; } #modalPiano .mp-pillars { grid-template-columns: 1fr; } #modalPiano .mp-cta { flex-direction: column; align-items: flex-start; } }
+
+/* ---------- modalFragili ---------- */
+#modalFragili .modal-dialog { max-width: 860px; }
+#modalFragili .modal-content { border-radius: 16px; overflow: hidden; border: none; }
+#modalFragili .mf-header { background: #0f2444; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+#modalFragili .mf-header-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 10px; }
+#modalFragili .mf-header-badge { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); }
+#modalFragili .mf-body { display: flex; max-height: 78vh; overflow: hidden; }
+#modalFragili .mf-sidebar { width: 200px; flex-shrink: 0; background: #f4f6fb; border-right: 1px solid #e2e8f0; padding: 1.25rem 0; overflow-y: auto; }
+#modalFragili .mf-sidebar::-webkit-scrollbar { width: 4px; }
+#modalFragili .mf-sidebar::-webkit-scrollbar-thumb { background: #dde3ed; border-radius: 4px; }
+#modalFragili .mf-sidebar-section { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #94a3b8; padding: 0.75rem 1.25rem 0.25rem; }
+#modalFragili .mf-nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0.55rem 1.25rem; background: transparent; border: none; border-left: 3px solid transparent; font-size: 0.85rem; color: #475569; cursor: pointer; text-align: left; transition: background 0.12s, color 0.12s, border-color 0.12s; line-height: 1.3; }
+#modalFragili .mf-nav-btn:hover { background: #e8edf7; color: #1e3a6e; }
+#modalFragili .mf-nav-btn.active { background: #e8edf7; color: #1e3a6e; font-weight: 600; border-left-color: #c0392b; }
+#modalFragili .mf-nav-btn i { font-size: 1rem; flex-shrink: 0; opacity: 0.7; }
+#modalFragili .mf-nav-btn.active i { opacity: 1; }
+#modalFragili .mf-content { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 2rem; background: #ffffff; }
+#modalFragili .mf-content::-webkit-scrollbar { width: 4px; }
+#modalFragili .mf-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+#modalFragili .mf-section { display: none; }
+#modalFragili .mf-section.active { display: block; }
+#modalFragili .mf-section-title { font-size: 1rem; font-weight: 700; color: #0f2444; margin: 0 0 0.25rem; display: flex; align-items: center; gap: 8px; }
+#modalFragili .mf-section-sub { font-size: 0.85rem; color: #64748b; margin: 0 0 1.5rem; line-height: 1.55; }
+#modalFragili .mf-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+#modalFragili .mf-tag { display: inline-flex; align-items: center; gap: 5px; background: #fff0f0; border: 1px solid #fecaca; border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; color: #7f1d1d; font-weight: 500; }
+#modalFragili .mf-law-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #c0392b; border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.82rem; color: #475569; line-height: 1.6; }
+#modalFragili .mf-law-box strong { color: #334155; }
+#modalFragili .mf-law-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #c0392b; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+#modalFragili .mf-cards { display: flex; flex-direction: column; gap: 10px; }
+#modalFragili .mf-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem 1.25rem; font-size: 0.85rem; color: #334155; line-height: 1.6; }
+#modalFragili .mf-card-title { font-weight: 700; color: #0f2444; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+#modalFragili .mf-card-title i { color: #c0392b; }
+#modalFragili .mf-alert { border-radius: 10px; padding: 0.85rem 1rem; font-size: 0.82rem; display: flex; gap: 10px; align-items: flex-start; margin-top: 1rem; }
+#modalFragili .mf-alert-warning { background: #fffbeb; border: 1px solid #fde68a; color: #78350f; }
+#modalFragili .mf-alert i { flex-shrink: 0; margin-top: 1px; }
+#modalFragili .mf-footer { padding: 1rem 2rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; }
+#modalFragili .mf-btn-close { background: transparent; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; padding: 7px 18px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+#modalFragili .mf-btn-close:hover { background: #f1f5f9; border-color: #94a3b8; }
+@media (max-width: 640px) { #modalFragili .mf-body { flex-direction: column; max-height: 85vh; } #modalFragili .mf-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e2e8f0; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 4px; overflow-x: auto; overflow-y: visible; } #modalFragili .mf-sidebar-section { display: none; } #modalFragili .mf-nav-btn { width: auto; border-left: none; border-bottom: 2px solid transparent; border-radius: 6px; padding: 0.4rem 0.75rem; font-size: 0.8rem; white-space: nowrap; } #modalFragili .mf-nav-btn.active { border-bottom-color: #c0392b; background: #e8edf7; } #modalFragili .mf-content { padding: 1.25rem; } }

@@ -1,0 +1,205 @@
+/* ═══════════════════════════════════════════════════════════
+   Bottom Tab Bar — menu mobile per pannello admin
+   Sostituisce l'hamburger sotto i 992px.
+   Dipende dalle CSS var già definite in admin.css (--pc-blue, --pc-yellow).
+   ═══════════════════════════════════════════════════════════ */
+
+.tabbar-item { -webkit-tap-highlight-color: transparent; }
+
+.bottom-tabbar {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1060;
+    background: #121E2B;
+    border-top: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 -4px 16px rgba(0,0,0,.18);
+    padding: .35rem .25rem calc(.35rem + env(safe-area-inset-bottom, 0px));
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 2px;
+}
+
+.tabbar-item {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+    padding: .4rem .2rem;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,.55);
+    text-decoration: none;
+    font-size: .68rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 10px;
+    transition: color .15s ease, background .15s ease;
+}
+
+.tabbar-item i {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.tabbar-item span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tabbar-item:active {
+    background: rgba(255,255,255,.06);
+}
+
+.tabbar-item.is-active {
+    color: var(--pc-yellow);
+}
+
+.tabbar-item.is-active i {
+    text-shadow: 0 0 12px rgba(212,175,0,.35);
+}
+
+/* piccolo indicatore sopra la voce attiva */
+.tabbar-item.is-active::before {
+    content: '';
+    position: absolute;
+    transform: translateY(-1.55rem);
+    width: 18px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--pc-yellow);
+}
+
+.tabbar-more.is-open {
+    color: var(--pc-yellow);
+}
+
+/* ── Backdrop ─────────────────────────────────────────────── */
+.tabbar-sheet-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.4);
+    z-index: 1070;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+.tabbar-sheet-backdrop.is-visible {
+    display: block;
+    opacity: 1;
+}
+
+/* ── Bottom sheet "Altro" ─────────────────────────────────── */
+.tabbar-sheet {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1080;
+    background: #fff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -8px 30px rgba(0,0,0,.25);
+    padding: .6rem 1.1rem calc(1.1rem + env(safe-area-inset-bottom, 0px));
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform .25s cubic-bezier(.32,.72,.35,1);
+}
+.tabbar-sheet.is-visible {
+    display: block;
+}
+.tabbar-sheet.is-open {
+    transform: translateY(0);
+}
+
+.tabbar-sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.15);
+    margin: .35rem auto .9rem;
+}
+
+.tabbar-sheet-user {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .5rem .3rem .9rem;
+    margin-bottom: .4rem;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.tabbar-sheet-user i {
+    font-size: 1.9rem;
+    color: var(--pc-blue);
+}
+.tabbar-sheet-user-label {
+    font-size: .72rem;
+    color: #6c757d;
+    line-height: 1.3;
+}
+.tabbar-sheet-user-name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: #121E2B;
+}
+.tabbar-sheet-user-role {
+    display: inline-block;
+    margin-top: .15rem;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--pc-blue);
+    background: rgba(0,59,122,.08);
+    padding: .1rem .5rem;
+    border-radius: 999px;
+}
+
+.tabbar-sheet-item {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .85rem .3rem;
+    font-size: .95rem;
+    font-weight: 600;
+    color: #121E2B;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.tabbar-sheet-item:last-child {
+    border-bottom: none;
+}
+.tabbar-sheet-item i {
+    width: 22px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--pc-blue);
+    flex-shrink: 0;
+}
+.tabbar-sheet-item:active {
+    background: rgba(0,0,0,.04);
+}
+.tabbar-sheet-item--danger {
+    color: #dc3545;
+}
+.tabbar-sheet-item--danger i {
+    color: #dc3545;
+}
+
+/* ── Attivazione solo su mobile ───────────────────────────── */
+@media (max-width: 992px) {
+    .bottom-tabbar {
+        display: flex;
+    }
+    /* evita che l'ultimo contenuto resti nascosto sotto la barra */
+    .main-content {
+        padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    }
+}
