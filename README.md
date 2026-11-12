@@ -82,12 +82,12 @@ La personalizzazione del sito avviene principalmente tramite `data/config.php`, 
 Lo scopo principale del sito è fornire informazioni su allerta meteo, prevenzione, mappa del territorio, news, galleria e contatti istituzionali.
 Per un avvio rapido, è inoltre disponibile `setup.php`, utile per verificare la configurazione iniziale e i prerequisiti di base.
 
-![Homepage](docs/images/Homepage.png)
-
 > **Attenzione**: `allerte/sync.php` non è un componente plug-and-play da clonare e usare 
 > così com'è. Il parsing HTML è stato realizzato ad hoc per il sito di uno specifico Comune 
 > e va ricreato o adattato per ogni Comune o fonte dati (es. API ARPA regionale) prima di 
 > essere usato in produzione.
+
+![Homepage](docs/images/Homepage.png)
 
 ### Anteprima
 - [Homepage](docs/images/Homepage.png)
