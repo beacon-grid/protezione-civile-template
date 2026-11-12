@@ -67,21 +67,14 @@ if (!$autorizzato) {
     }
 }
 
-// Se lo script arriva qui, significa che l'utente è VERIFICATO e AUTORIZZATO
-$risultato = eseguiSincronizzazione($site);
-$statoSincro = $risultato['ok'] ? 'success' : 'error_sync';
-$messaggioErrore = $risultato['errore'] ?? '';
-$allertaMassima = $risultato['output']['allerta_globale'] ?? '';
-$ultimoAggiornamento = $risultato['output']['ultimo_aggiornamento'] ?? 'N/D';
-
-if (!$risultato['ok']) {
-    error_log('[sync_allerta] ' . $messaggioErrore);
-}
-
-// --------------------------------------------------------------------------
-// OUTPUT INTERFACCIA GRAFICA DI SUCCESSO / ERRORE DI SINCRONIZZAZIONE
-// --------------------------------------------------------------------------
 if (!$isCli) {
+    header('Content-Type: text/html; charset=UTF-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate');
+    header('X-Accel-Buffering: no');
+    while (ob_get_level() > 0) {
+        ob_end_flush();
+    }
+    ob_implicit_flush(true);
     ?>
     <!DOCTYPE html>
     <html lang="it">
@@ -102,11 +95,13 @@ if (!$isCli) {
             body {
                 background-color: #f4f6f9;
                 font-family: 'Source Sans 3', sans-serif;
-                height: 100vh;
+                min-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 margin: 0;
+                padding: 20px;
+                box-sizing: border-box;
             }
             .sync-card {
                 background: white;
@@ -135,16 +130,46 @@ if (!$isCli) {
                 display: inline-block;
                 margin-top: 10px;
             }
+            .sync-spinner {
+                width: 2.5rem;
+                height: 2.5rem;
+                color: var(--pc-blue);
+                border-width: .25em;
+            }
         </style>
     </head>
     <body>
+    <main class="sync-card" id="sync-card" role="status" aria-live="polite" aria-busy="true">
+        <div class="icon-circle" style="background: rgba(0, 59, 122, 0.08); color: var(--pc-blue);">
+            <span class="spinner-border sync-spinner" aria-hidden="true"></span>
+        </div>
+        <h1 class="h3" style="color: #121E2B; font-weight: 700;">Sincronizzazione in corso</h1>
+        <p class="text-muted mb-2">Stiamo recuperando e aggiornando i dati delle allerte regionali.</p>
+        <p class="small text-muted mb-0">La pagina si aggiornerà automaticamente al termine. Attendi qualche istante.</p>
+    </main>
+    <?php
+    flush();
+}
 
-    <div class="sync-card">
-        <?php if ($statoSincro === 'success'): ?>
+// Se lo script arriva qui, significa che l'utente è VERIFICATO e AUTORIZZATO
+$risultato = eseguiSincronizzazione($site);
+$statoSincro = $risultato['ok'] ? 'success' : 'error_sync';
+$messaggioErrore = $risultato['errore'] ?? '';
+$allertaMassima = $risultato['output']['allerta_globale'] ?? '';
+$ultimoAggiornamento = $risultato['output']['ultimo_aggiornamento'] ?? 'N/D';
+
+if (!$risultato['ok']) {
+    error_log('[sync_allerta] ' . $messaggioErrore);
+}
+
+if (!$isCli) {
+    ob_start();
+    ?>
+    <?php if ($statoSincro === 'success'): ?>
             <div class="icon-circle" style="background: rgba(26, 122, 60, 0.1); color: var(--alert-verde);">
                 <i class="bi bi-check-circle-fill"></i>
             </div>
-            <h3 style="color: #121E2B; font-weight: 700;">Sincronizzazione Riuscita!</h3>
+            <h1 class="h3" style="color: #121E2B; font-weight: 700;">Sincronizzazione riuscita</h1>
             <p class="text-muted small">I dati del portale sono ora allineati con il feed della Protezione Civile Regionale.</p>
 
             <div class="p-3 my-3 bg-light rounded text-start small border">
@@ -160,26 +185,28 @@ if (!$isCli) {
                     </span>
                 </div>
             </div>
-        <?php else: ?>
+    <?php else: ?>
             <div class="icon-circle" style="background: rgba(184, 28, 28, 0.1); color: var(--alert-rosso);">
                 <i class="bi bi-x-circle-fill"></i>
             </div>
-            <h3 class="text-danger" style="font-weight: 700;">Sincronizzazione Fallita</h3>
+            <h1 class="h3 text-danger" style="font-weight: 700;">Sincronizzazione fallita</h1>
             <p class="text-muted small">Si è verificato un problema durante il recupero o il salvataggio dei dati. Il dettaglio tecnico è stato registrato nei log.</p>
             
             <?php if (!empty($messaggioErrore) && $messaggioErrore !== $messaggioAuth): ?>
                 <div class="alert alert-danger p-2 small text-start"><?= htmlspecialchars($messaggioErrore) ?></div>
             <?php endif; ?>
-        <?php endif; ?>
+    <?php endif; ?>
 
-        <a href="javascript:history.back()" class="btn btn-sm mt-2 w-100 text-white" style="background-color: var(--pc-blue); border-radius: 8px; padding: 10px;">
-            <i class="bi bi-arrow-left me-1"></i> Torna al Pannello
-        </a>
-    </div>
-
-    </body>
-    </html>
+    <a href="javascript:history.back()" class="btn btn-sm mt-2 w-100 text-white" style="background-color: var(--pc-blue); border-radius: 8px; padding: 10px;">
+        <i class="bi bi-arrow-left me-1"></i> Torna al Pannello
+    </a>
     <?php
+    $resultMarkup = ob_get_clean();
+    echo '<script>const syncCard = document.getElementById("sync-card");'
+        . 'syncCard.innerHTML = '
+        . json_encode($resultMarkup, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+        . ';syncCard.setAttribute("aria-busy","false");</script></body></html>';
+    flush();
 } else {
     // OUTPUT CLI PULITO PER I CRONJOB INFRASETTIMANALI
     echo "STATUS: OK | Allerta globale: $allertaMassima | Data: $ultimoAggiornamento\n";

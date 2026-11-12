@@ -130,7 +130,7 @@ Cartelle principali:
 - `data/` - database SQLite, dati sorgente legacy e protezione `.htaccess`
   - `site.sqlite` - account, contenuti, stato emergenza e cache
 
-> `vendor/` e i manifest Composer **non sono inclusi nel repository**. Per installare HTMLPurifier fuori dal webroot, segui la sezione 9.
+> `vendor/` e i manifest Composer **non sono inclusi nel repository**. Per installare HTMLPurifier e mPDF fuori dal webroot, segui la sezione 9.
 
 ---
 
@@ -141,14 +141,14 @@ Esempio su Debian/Ubuntu con Apache:
 
 ```bash
 sudo apt update
-sudo apt install apache2 php8.4 libapache2-mod-php8.4 php8.4-curl php8.4-json php8.4-sqlite3 php8.4-mbstring php8.4-xml
+sudo apt install apache2 composer php8.4 libapache2-mod-php8.4 php8.4-curl php8.4-json php8.4-sqlite3 php8.4-mbstring php8.4-xml php8.4-gd
 ```
 
 Per Nginx con PHP-FPM:
 
 ```bash
 sudo apt update
-sudo apt install nginx php8.4-fpm php8.4-curl php8.4-json php8.4-sqlite3 php8.4-mbstring php8.4-xml
+sudo apt install nginx composer php8.4-fpm php8.4-curl php8.4-json php8.4-sqlite3 php8.4-mbstring php8.4-xml php8.4-gd
 ```
 
 ### 4.2 Posizionamento dei file e checklist di primo deploy
@@ -157,8 +157,8 @@ sudo apt install nginx php8.4-fpm php8.4-curl php8.4-json php8.4-sqlite3 php8.4-
 - Esempio Nginx: `/usr/share/nginx/html` o la root definita nella configurazione.
 - Dopo il caricamento, completa questa checklist **prima** di eseguire `setup.php` o rendere il sito pubblicamente raggiungibile:
 
-1. **Estensioni PHP** — verifica che le estensioni installate in 4.1 siano effettivamente attive: `php -m | grep -E 'json|curl|sqlite|mbstring|xml|opcache'`
-2. **HTMLPurifier** — predisponi la dipendenza Composer come descritto in sezione 9 e verifica che sia disponibile `vendor/autoload.php`
+1. **Estensioni PHP** — verifica che le estensioni installate in 4.1 siano effettivamente attive: `php -m | grep -E 'json|curl|sqlite|mbstring|xml|gd|opcache'`
+2. **Composer** — installa HTMLPurifier e mPDF come descritto in sezione 9 e verifica che sia disponibile `/var/www/vendor/autoload.php`
 3. **Protezione di `data/`** — verifica che `data/.htaccess` contenga `Require all denied` (per Nginx, vedi sezione 4.3)
 4. **Permessi su `data/`** — imposta owner e permessi come indicato in sezione 4.3
 5. **Esegui `setup.php`** per generare `data/config.php` tramite il wizard guidato
@@ -535,20 +535,20 @@ Includere anche `assets/img/news/` nei backup. Il backup della cartella `data/` 
 
 ---
 
-## 9. HTMLPurifier (gestione dipendenze)
+## 9. Dipendenze Composer (HTMLPurifier e mPDF)
 
-HTMLPurifier è gestito tramite **Composer**. La cartella `vendor/` non è inclusa nel repository.
+HTMLPurifier e mPDF sono gestiti tramite **Composer**. La cartella `vendor/` non è inclusa nel repository.
 
 ### 9.1 Installazione
 
-Assicurarsi che Composer sia installato sul server. Il repository non include `composer.json` né `composer.lock`: per il layout d'esempio con webroot `/var/www/html`, crea il progetto Composer e installa HTMLPurifier in `/var/www`, fuori dalla cartella pubblica:
+Assicurarsi che Composer sia installato sul server (`sudo apt install composer` su Debian/Raspberry Pi OS). Il repository non include `composer.json` né `composer.lock`: per il layout d'esempio con webroot `/var/www/html`, crea il progetto Composer e installa le dipendenze in `/var/www`, fuori dalla cartella pubblica:
 
 ```bash
 cd /var/www
-composer require ezyang/htmlpurifier:^4.19
+composer require ezyang/htmlpurifier:^4.19 mpdf/mpdf:^8.2
 ```
 
-Il comando crea i manifest Composer e `/var/www/vendor/`, contenente HTMLPurifier e il relativo autoloader. Conserva `composer.json` e `composer.lock` fuori dal webroot: per i deploy successivi, esegui `composer install` in `/var/www` dopo aver ripristinato entrambi i manifest.
+Il comando crea i manifest Composer e `/var/www/vendor/`, contenente le librerie e il relativo autoloader. Conserva `composer.json` e `composer.lock` fuori dal webroot: per i deploy successivi, esegui `composer install` in `/var/www` dopo aver ripristinato entrambi i manifest.
 
 > La cartella `vendor/` deve stare **un livello sopra** il webroot (`html/`), non dentro di esso, per non essere accessibile via browser.
 
@@ -568,7 +568,7 @@ Il comando crea i manifest Composer e `/var/www/vendor/`, contenente HTMLPurifie
 
 ### 9.3 Caricamento nei file PHP
 
-I file che usano HTMLPurifier lo caricano con un percorso relativo, indipendente dalla posizione assoluta sul server:
+I file che usano le dipendenze Composer caricano l'autoloader con un percorso relativo, indipendente dalla posizione assoluta del repository:
 
 ```php
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
@@ -576,14 +576,30 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 ### 9.4 Aggiornamento
 
-Per aggiornare HTMLPurifier in futuro:
+Per aggiornare le dipendenze in futuro:
 
 ```bash
 cd /var/www
-composer update ezyang/htmlpurifier
+composer update ezyang/htmlpurifier mpdf/mpdf
 ```
 
-### 9.5 Aggiunta a .gitignore
+### 9.5 Esportazione PDF dei rischi
+
+L'esportazione usa mPDF per creare un PDF A4 scaricabile. Il contenuto dei rischi
+è definito una sola volta in `rischi/contenuti_rischi.php` ed è incluso sia dalla
+pagina web sia dal generatore PDF. In questo modo titoli e indicazioni restano
+sincronizzati, mentre web e PDF possono avere presentazioni distinte.
+
+Il server deve avere attive le estensioni PHP `mbstring`, `xml` e `gd`, oltre alle
+dipendenze Composer. Verificare che `/var/www/vendor/autoload.php` sia leggibile
+dal processo PHP.
+
+Quando si aggiorna manualmente il sito, pubblicare insieme `rischi/rischi.php`,
+`rischi/contenuti_rischi.php` e `rischi/stampa_rischi.php`: pagina web ed export
+condividono il file dei contenuti. Il logo viene letto da `assets/img/logo.png`
+e incorporato nel PDF da mPDF.
+
+### 9.6 Aggiunta a .gitignore
 
 Assicurarsi che `vendor/` sia escluso dal repository:
 
@@ -669,13 +685,19 @@ sudo find /var/www/html/data -type f -exec chmod 640 {} \;
 
 Se il web server usa un altro nome utente, sostituisci `www-data` con quello corretto. Se invece l'ambiente richiede un owner uguale a quello del processo web, mantieni comunque i permessi il più restrittivi possibile e evita `777` o `770` applicati a tutta la struttura in modo indiscriminato.
 
-### HTMLPurifier non trovato
+### Dipendenza Composer non trovata
 Assicurarsi di aver predisposto i manifest Composer come descritto nella sezione 9 e poi eseguito `composer install` in `/var/www/` (un livello sopra il webroot):
 ```bash
 cd /var/www
 composer install
 ```
 Verificare che esista `/var/www/vendor/autoload.php`.
+
+Se l'esportazione dei rischi mostra un errore di configurazione, verificare anche che mPDF sia installato:
+```bash
+cd /var/www
+composer show mpdf/mpdf
+```
 
 ### PHP non mostra errori in sviluppo
 Aggiungere temporaneamente in cima al file PHP da debuggare:
@@ -706,7 +728,7 @@ sudo systemctl start certbot.timer
 ---
 
 ## 14. Note importanti
-- HTMLPurifier è gestito tramite Composer; eseguire `composer install` in `/var/www/` dopo ogni nuovo deploy (vedi sezione 9).
+- HTMLPurifier e mPDF sono gestiti tramite Composer; eseguire `composer install` in `/var/www/` dopo ogni nuovo deploy (vedi sezione 9).
 - Le password degli account sono salvate come hash `password_hash()` nel database SQLite `data/site.sqlite`.
 - Non esporre la cartella `admin/` o `data/config.php` senza protezione su server pubblico.
 - `data/config.php` non deve mai essere scrivibile dopo il setup iniziale — vedi sezione 4.3.1.
