@@ -777,4 +777,4 @@ Oltre alle news, il pannello admin consente di gestire glossario, utenti e sincr
 
 ---
 
-**Ultima revisione**: 8 novembre 2026
+**Ultima revisione**: 12 novembre 2026
