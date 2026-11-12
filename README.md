@@ -95,6 +95,8 @@ Per un avvio rapido, è inoltre disponibile `setup.php`, utile per verificare la
 - [Bollettino](docs/images/Bollettino.png)
 - [I rischi](docs/images/I%20rischi.png)
 - [Chi siamo](docs/images/Chi-siamo.png)
+- [Pagina di emergenza](docs/images/Pagina%20emergenza.png)
+- [Avviso pagina di emergenza](docs/images/Avviso%20emergenza.png)
 
 ---
 
