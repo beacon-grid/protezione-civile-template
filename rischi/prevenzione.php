@@ -118,7 +118,7 @@
                         <div class="mk-kit-grid">
                             <div class="mk-kit-item"><strong>Documenti</strong>Copie cartacee di documenti e tessere sanitarie.</div>
                             <div class="mk-kit-item"><strong>Farmaci</strong>Terapie quotidiane per alcuni giorni + lista di allergie scritta.</div>
-                            <div class="mk-kit-item"><strong>Tech</strong>Telefono, cavo di ricarica e power bank carico.</div>
+                            <div class="mk-kit-item"><strong>Tecnologia</strong>Telefono, cavo di ricarica e power bank carico.</div>
                             <div class="mk-kit-item"><strong>Segnalazione</strong>Torcia elettrica funzionante e fischietto.</div>
                             <div class="mk-kit-item"><strong>Sussistenza</strong>Una bottiglia d'acqua e snack energetici pronti.</div>
                             <div class="mk-kit-item"><strong>Contante</strong>Banconote di piccolo taglio.</div>

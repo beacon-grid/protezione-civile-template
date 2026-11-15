@@ -103,7 +103,7 @@ $queryTooShort = $query !== '' && !$queryHasSearchableToken;
 <link href="/css/site-search.css" rel="stylesheet">
 
 <main class="site-search container py-4 py-lg-5" id="main-content" tabindex="-1">
-    <header class="site-search__hero mb-4 mb-lg-5">
+    <header class="site-search__hero mb-3">
         <div class="site-search__hero-content">
             <span class="site-search__eyebrow"><i class="bi bi-compass" aria-hidden="true"></i> Ricerca nel sito</span>
             <h1 class="site-search__title">Cerca quello che ti serve</h1>
@@ -114,7 +114,8 @@ $queryTooShort = $query !== '' && !$queryHasSearchableToken;
         <div class="site-search__hero-icon" aria-hidden="true"><i class="bi bi-search"></i></div>
     </header>
 
-    <section class="site-search__panel mb-4" aria-labelledby="search-form-title">
+    <div class="site-search__workspace">
+    <section class="site-search__panel" aria-labelledby="search-form-title">
         <h2 class="visually-hidden" id="search-form-title">Modulo di ricerca</h2>
         <form action="/cerca" method="get" role="search">
             <label class="form-label fw-semibold" for="search-query">Che cosa vuoi trovare?</label>
@@ -276,6 +277,7 @@ $queryTooShort = $query !== '' && !$queryHasSearchableToken;
             <?php endif; ?>
         </section>
     <?php endif; ?>
+    </div>
 
     <aside class="site-search__notice mt-5" aria-label="Informazioni sulla ricerca">
         <i class="bi bi-info-circle" aria-hidden="true"></i>
