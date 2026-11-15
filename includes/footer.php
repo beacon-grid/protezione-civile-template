@@ -13,9 +13,31 @@
  */
 
 require_once __DIR__ . '/../php/config.php';
+require_once __DIR__ . '/../php/page_update.php';
 $site = $site ?? app_config()['site'];
 require_once __DIR__ . '/../php/site_search.php';
-$search_settings = site_search_settings(); ?>
+$search_settings = site_search_settings();
+$page_updated_timestamp = site_page_should_show_updated_at()
+    ? site_page_last_updated_timestamp()
+    : null;
+$page_updated_date = $page_updated_timestamp === null
+    ? null
+    : (new DateTimeImmutable('@' . $page_updated_timestamp))->setTimezone(new DateTimeZone('Europe/Rome'));
+?>
+
+<?php if ($page_updated_date !== null): ?>
+    <div class="container page-update-container">
+        <p class="page-update-note">
+            <i class="bi bi-calendar3" aria-hidden="true"></i>
+            <span>
+                Ultimo aggiornamento:
+                <time datetime="<?= htmlspecialchars($page_updated_date->format('Y-m-d'), ENT_QUOTES, 'UTF-8') ?>">
+                    <?= htmlspecialchars($page_updated_date->format('d/m/Y'), ENT_QUOTES, 'UTF-8') ?>
+                </time>
+            </span>
+        </p>
+    </div>
+<?php endif; ?>
 
 <footer class="pt-5 pb-3 mt-5" aria-label="Piè di pagina istituzionale">
     <div class="container">

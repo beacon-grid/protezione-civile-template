@@ -1,134 +1,51 @@
-<!-- MENU -->
+
+<?php
+// Elenco dei rischi: id sezione => [etichetta, icona Bootstrap, colore icona]
+$rischi_menu = [
+    'meteo'        => ['Meteo',            'cloud-lightning-rain', '#0b7285'],
+    'neve'         => ['Neve',             'snowflake',            '#0b7285'],
+    'terremoto'    => ['Terremoto',        'house-exclamation',    '#b02a37'],
+    'alluvione'    => ['Alluvione',        'water',                '#0d6efd'],
+    'incendio'     => ['Incendio boschivo','fire',                 '#b45309'],
+    'vulcanico'    => ['Vulcanico',        'triangle-half',        '#6f42c1'],
+    'frana'        => ['Frana',            'layers-half',          '#a0522d'],
+    'valanga'      => ['Valanga',          'snow2',                '#0e7490'],
+    'crisi-idrica' => ['Crisi idrica',     'droplet-half',         '#0d6efd'],
+    'ciclone'      => ['Ciclone',          'hurricane',            '#198754'],
+    'maremoto'     => ['Maremoto',         'tsunami',              '#0a58ca'],
+    'nucleare'     => ['Nucleare',         'radioactive',          '#946c00'],
+    'industriale'  => ['Industriale',      'factory',              '#495057'],
+    'blackout'     => ['Blackout',         'lightning-charge',     '#c2410c'],
+];
+?>
 <?php if (empty($is_print_view)): ?>
-<div class="bg-white sticky-top shadow-sm border-bottom py-2 d-block risk-menu"
-     style="top: 70px; z-index: 99;">
+<div class="rk-layout">
 
-    <div class="container text-center d-flex flex-wrap justify-content-center align-items-center gap-2 risk-menu-inner">
-
-        
-        <details open>
-            <summary>
-                <span class="small fw-semibold text-muted me-3 mb-2 mb-md-0 w-100 w-md-auto">
-                    Salta a:
-                </span>
-            </summary>
-            <a href="#"
-            data-target="meteo"
-            class="risk-btn btn btn-sm btn-secondary mx-1 fw-medium">
-                <i class="bi bi-cloud-lightning-rain mx-1 text-info"></i>
-                Meteo
-            </a>
-
-            <a href="#"
-            data-target="neve"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-snowflake mx-1 text-info"></i>
-                Neve
-            </a>
-
-            <a href="#"
-            data-target="terremoto"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-house-exclamation me-1 text-danger"></i>
-                Terremoto
-            </a>
-
-            <a href="#"
-            data-target="alluvione"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-water mx-1 text-primary"></i>
-                Alluvione
-            </a>
-
-            <a href="#"
-            data-target="incendio"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-fire mx-1 text-warning-on-light"></i>
-                Incendio Boschivo
-            </a>
-
-            <a href="#"
-            data-target="vulcanico"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-triangle-half mx-1"
-                style="color: #6f42c1;"></i>
-                Vulcanico
-            </a>
-
-            <a href="#"
-            data-target="frana"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-layers-half mx-1"
-                style="color: #a0522d;"></i>
-                Frana
-            </a>
-
-            <a href="#"
-            data-target="valanga"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-snow2 mx-1"
-                style="color: #17a2b8;"></i>
-                Valanga
-            </a>
-
-            <a href="#"
-            data-target="crisi-idrica"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-droplet-half mx-1"
-                style="color: #0d6efd;"></i>
-                Crisi Idrica
-            </a>
-
-            <a href="#"
-            data-target="ciclone"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-hurricane mx-1"
-                style="color: #198754;"></i>
-                Ciclone
-            </a>
-
-            <a href="#"
-            data-target="maremoto"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-tsunami mx-1"
-                style="color: #0a58ca;"></i>
-                Maremoto
-            </a>
-
-            <a href="#"
-            data-target="nucleare"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-radioactive mx-1"
-                style="color: #d39e00;"></i>
-                Nucleare
-            </a>
-
-            <a href="#"
-            data-target="industriale"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-factory mx-1"
-                style="color: #6c757d;"></i>
-                Industriale
-            </a>
-
-            <a href="#"
-            data-target="blackout"
-            class="risk-btn btn btn-sm btn-outline-secondary mx-1 fw-medium">
-                <i class="bi bi-lightning-charge mx-1" style="color: #fd7e14;"></i>
-                Blackout
-            </a>
-        </details>
-        
-        <button type="button" class="btn btn-sm btn-outline-primary mx-1 fw-medium"
-                data-bs-toggle="modal" data-bs-target="#printModal">
-            <i class="bi bi-printer mx-1"></i> Stampa / Esporta PDF
+    <nav class="rk-nav" aria-label="Scegli un rischio da consultare">
+        <p class="rk-nav-title">Scegli un rischio</p>
+        <ul class="rk-list">
+            <?php foreach ($rischi_menu as $id => $r): ?>
+            <li>
+                <a href="#<?= $id ?>" data-target="<?= $id ?>" class="risk-btn rk-link">
+                    <i class="bi bi-<?= $r[1] ?>" style="color: <?= $r[2] ?>;" aria-hidden="true"></i>
+                    <span><?= $r[0] ?></span>
+                </a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+        <button type="button" class="rk-print" data-bs-toggle="modal" data-bs-target="#printModal">
+            <i class="bi bi-printer" aria-hidden="true"></i> Stampa / Esporta PDF
         </button>
-    </div>
-</div>
+    </nav>
+
+    <div class="rk-content">
 <?php endif; ?>
 
 <?php include __DIR__ . '/contenuti_rischi.php'; ?>
+
 <?php if (empty($is_print_view)): ?>
+    </div>
+</div>
 
 <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel" aria-modal="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -156,141 +73,53 @@
   </div>
 </div>
 <?php endif; ?>
-<!-- SCRIPT -->
-<script>
 
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const sections = document.querySelectorAll(".risk-section");
     const buttons = document.querySelectorAll(".risk-btn");
-    const details = document.querySelector(".risk-menu-inner details");
-    const menu = document.querySelector(".risk-menu");
 
-    function injectRiskMenuStyles() {
-        const css = `
-            .risk-menu-inner details {
-                width: 100%;
-                background: rgba(248, 249, 250, 0.95);
-                border-radius: 1rem;
-                padding: 0.35rem;
-                box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
-            }
-            .risk-menu-inner summary {
-                list-style: none;
-                cursor: pointer;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                padding: 0.5rem 0.75rem;
-                border-radius: 1rem;
-                background-color: #ffffff;
-                transition: background-color 0.2s ease;
-            }
-            .risk-menu-inner summary:hover {
-                background-color: #f1f3f5;
-            }
-            .risk-menu-inner summary::-webkit-details-marker {
-                display: none;
-            }
-            .risk-menu-inner details[open] summary {
-                background-color: #e9ecef;
-            }
-            .risk-menu-inner .risk-btn {
-                margin: 0.2rem 0.15rem;
-            }
-        `;
-        const style = document.createElement("style");
-        style.type = "text/css";
-        style.appendChild(document.createTextNode(css));
-        document.head.appendChild(style);
-    }
+    function showSection(id, scrollToTarget = true) {
 
-    function closeDetailsOnScroll() {
-        if (!details || !details.open || !menu) {
-            return;
-        }
+        sections.forEach(section => section.classList.remove("active"));
 
-        const rect = menu.getBoundingClientRect();
-        if (rect.top <= 70) {
-            details.open = false;
-        }
-    }
-
-    function showSection(id) {
-
-        // Nasconde tutte
-        sections.forEach(section => {
-            section.classList.remove("active");
-        });
-
-        // Mostra quella scelta
         const target = document.getElementById(id);
-
         if (target) {
             target.classList.add("active");
         }
 
-        // Stato pulsanti
         buttons.forEach(btn => {
-            btn.classList.remove("btn-secondary");
-            btn.classList.add("btn-outline-secondary");
+            if (btn.dataset.target === id) {
+                btn.setAttribute("aria-current", "true");
+                // Mantiene visibile la voce attiva quando il menu esce dal viewport.
+                btn.scrollIntoView({ block: "nearest", inline: "nearest" });
+            } else {
+                btn.removeAttribute("aria-current");
+            }
         });
 
-        const activeBtn = document.querySelector(`[data-target="${id}"]`);
-
-        if (activeBtn) {
-            activeBtn.classList.remove("btn-outline-secondary");
-            activeBtn.classList.add("btn-secondary");
+        if (scrollToTarget && target) {
+            target.scrollIntoView({
+                block: "start",
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+            });
         }
-
-        // Scroll top
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
     }
 
-    // Default
-    injectRiskMenuStyles();
-    if (details) {
-        details.open = true;
-    }
-    closeDetailsOnScroll();
+    // Sezione iniziale: da #hash se valido, altrimenti "meteo"
     const initialRisk = window.location.hash.slice(1);
     const initialSection = document.getElementById(initialRisk);
-    showSection(initialSection && initialSection.classList.contains("risk-section") ? initialRisk : "meteo");
+    const isRiskAnchor = initialSection && initialSection.classList.contains("risk-section");
+    showSection(isRiskAnchor ? initialRisk : "meteo", isRiskAnchor);
 
-    if (details) {
-        details.addEventListener("click", function (event) {
-            if (!event.target.closest("summary")) {
-                return;
-            }
-
-            if (!details.open) {
-                requestAnimationFrame(function () {
-                    details.open = true;
-                });
-            }
-        });
-    }
-
-    window.addEventListener("scroll", closeDetailsOnScroll);
-
-    // Click sui bottoni "Salta a:"
     buttons.forEach(button => {
-
         button.addEventListener("click", function (e) {
-
             e.preventDefault();
-
             const target = this.dataset.target;
-
+            window.history.replaceState(window.history.state, "", "#" + target);
             showSection(target);
-
         });
-
     });
 
     // ---- MODALE STAMPA / ESPORTA PDF ----
@@ -323,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.id = "printCheck-" + section.id;
                 input.value = section.id;
                 input.checked = true;
-
                 input.addEventListener("change", updateToggleAllLabel);
 
                 const label = document.createElement("label");
@@ -339,24 +167,17 @@ document.addEventListener("DOMContentLoaded", function () {
             updateToggleAllLabel();
         }
 
-        // Rigenera le checkbox ogni volta che il modale si apre
         printModalEl.addEventListener("show.bs.modal", buildPrintCheckboxes);
 
-        // Seleziona / Deseleziona tutto
         if (printToggleAllBtn) {
             printToggleAllBtn.addEventListener("click", function () {
                 const checkboxes = printSectionList.querySelectorAll(".print-section-checkbox");
                 const tutteSelezionate = Array.from(checkboxes).every(cb => cb.checked);
-
-                checkboxes.forEach(cb => {
-                    cb.checked = !tutteSelezionate;
-                });
-
+                checkboxes.forEach(cb => { cb.checked = !tutteSelezionate; });
                 updateToggleAllLabel();
             });
         }
 
-        // Esporta PDF
         if (printExportBtn) {
             printExportBtn.addEventListener("click", function () {
                 const checkboxes = printSectionList.querySelectorAll(".print-section-checkbox:checked");
@@ -371,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (selezionate.length < sections.length) {
                     url += "?sezioni=" + encodeURIComponent(selezionate.join(","));
                 }
-                // Se sono selezionate tutte le sezioni, nessun parametro = stampa tutto
 
                 window.open(url, "_blank");
 
@@ -384,5 +204,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
 </script>

@@ -433,6 +433,16 @@ function app_glossary_load_entries(): array
     );
 }
 
+function app_glossary_last_updated_timestamp(): ?int
+{
+    $updatedAt = app_data_get('glossary_entries_updated_at');
+    if (!is_int($updatedAt) || $updatedAt <= 0) {
+        return null;
+    }
+
+    return $updatedAt;
+}
+
 function app_glossary_save_entries(array $entries): bool
 {
     $pdo = app_db();
@@ -459,6 +469,7 @@ function app_glossary_save_entries(array $entries): bool
                 $index,
             ]);
         }
+        app_data_set_with_pdo($pdo, 'glossary_entries_updated_at', time());
         $pdo->commit();
         return true;
     } catch (Throwable $exception) {
@@ -478,11 +489,23 @@ function app_glossary_load_settings(): array
 
 function app_glossary_save_settings(array $settings): bool
 {
-    $statement = app_db()->prepare(
-        'INSERT INTO app_glossary_settings (id, enabled) VALUES (1, ?)
-         ON CONFLICT(id) DO UPDATE SET enabled = excluded.enabled'
-    );
-    return $statement->execute([!empty($settings['enabled']) ? 1 : 0]);
+    $pdo = app_db();
+    $pdo->beginTransaction();
+    try {
+        $statement = $pdo->prepare(
+            'INSERT INTO app_glossary_settings (id, enabled) VALUES (1, ?)
+             ON CONFLICT(id) DO UPDATE SET enabled = excluded.enabled'
+        );
+        $statement->execute([!empty($settings['enabled']) ? 1 : 0]);
+        app_data_set_with_pdo($pdo, 'glossary_entries_updated_at', time());
+        $pdo->commit();
+        return true;
+    } catch (Throwable $exception) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        throw $exception;
+    }
 }
 
 function app_data_set_with_pdo(PDO $pdo, string $key, mixed $value): void

@@ -925,6 +925,46 @@ footer {
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
+
+.page-update-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    margin-bottom: -1.5rem;
+}
+
+.page-update-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #d5deea;
+    border-left: 3px solid var(--pc-yellow);
+    border-radius: 0.4rem;
+    background: #f7f9fc;
+    color: #33465a;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.page-update-note time {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+    .page-update-container {
+        margin-top: 1rem;
+        margin-bottom: -1rem;
+    }
+
+    .page-update-note {
+        padding: 0.35rem 0.55rem;
+        font-size: 0.75rem;
+    }
+}
  
 .footer-bottom {
     color: rgba(255,255,255,.6);

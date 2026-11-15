@@ -74,6 +74,9 @@ $is_admin = $is_admin ?? false;
     <link href="/css/bootstrap-icons.min.css"  rel="stylesheet">
     <link href="/css/style.css"                rel="stylesheet">
     <link href="/css/glossario.css"            rel="stylesheet">
+    <?php foreach ($page_stylesheets ?? [] as $stylesheet): ?>
+    <link href="<?= htmlspecialchars($stylesheet, ENT_QUOTES, 'UTF-8') ?>" rel="stylesheet">
+    <?php endforeach; ?>
     
     <!-- Structured Data JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -210,7 +213,7 @@ $is_admin = $is_admin ?? false;
                     <a class="nav-link" href="/chi-siamo.php">Chi Siamo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#rischi">Prevenzione</a>
+                    <a class="nav-link" href="/rischi">Prevenzione</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/news/">Notizie</a>

@@ -13,20 +13,18 @@
  */
 
 require_once __DIR__ . '/php/config.php';
+require_once __DIR__ . '/php/page_update.php';
 $config = app_config();
 $site = $config['site'];
+$privacy_updated_timestamp = site_page_last_updated_timestamp();
+$privacy_updated_date = $privacy_updated_timestamp === null
+    ? null
+    : (new DateTimeImmutable('@' . $privacy_updated_timestamp))->setTimezone(new DateTimeZone('Europe/Rome'));
 
 // Meta specifici di questa pagina
 $meta_title       = 'Privacy e Licenza Contenuti - ' . $site['nome_breve'];
 $meta_description = 'Informativa sulla privacy, sui cookie e licenza dei contenuti del sito di ' . $site['nome_ente'] . '.';
 $meta_url         = $site['urls']['home'] . '/privacy.php';
-
-/**
- * Data di ultimo aggiornamento di QUESTA pagina.
- * Aggiornare manualmente questa costante ogni volta che il testo
- * dell'informativa viene modificato in modo sostanziale.
- */
-const PRIVACY_LAST_UPDATE = '21 luglio 2026';
 
 /**
  * Licenza applicata ai contenuti editoriali del sito (testi, news, materiali
@@ -267,8 +265,6 @@ $content_license = $site['content_license'] ?? 'Tutti i diritti riservati';
         con l'effettivo funzionamento del sito, aggiornandola tempestivamente qualora vengano
         introdotte nuove funzionalità che comportano il trattamento di dati personali dei visitatori.
     </p>
-    <p><em>Ultimo aggiornamento di questa sezione: <?= htmlspecialchars(PRIVACY_LAST_UPDATE) ?></em></p>
-
     <hr class="my-5">
 
     <h2>Parte 2: Licenza dei Contenuti</h2>
@@ -354,7 +350,19 @@ $content_license = $site['content_license'] ?? 'Tutti i diritti riservati';
         contenuto stesso.
     </p>
 
-    <p><em>Ultimo aggiornamento di questa sezione: <?= htmlspecialchars(PRIVACY_LAST_UPDATE) ?></em></p>
+    <?php if ($privacy_updated_date !== null): ?>
+        <div class="d-flex justify-content-end mt-4">
+            <p class="page-update-note">
+                <i class="bi bi-calendar3" aria-hidden="true"></i>
+                <span>
+                    Ultimo aggiornamento:
+                    <time datetime="<?= htmlspecialchars($privacy_updated_date->format('Y-m-d'), ENT_QUOTES, 'UTF-8') ?>">
+                        <?= htmlspecialchars($privacy_updated_date->format('d/m/Y'), ENT_QUOTES, 'UTF-8') ?>
+                    </time>
+                </span>
+            </p>
+        </div>
+    <?php endif; ?>
 
 </main>
 </body>

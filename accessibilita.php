@@ -53,10 +53,6 @@ include('includes/header.php');
                         (Disposizioni per favorire l'accesso dei soggetti disabili agli strumenti informatici)
                         e delle <strong>Linee Guida AGID</strong> per i siti della Pubblica Amministrazione.
                     </p>
-                    <p class="card-text text-muted small mb-0">
-                        <i class="bi bi-calendar-event me-1" aria-hidden="true"></i>
-                        Ultimo aggiornamento di questa pagina: <time datetime="[DA COMPILARE]">[DA COMPILARE — data ultima modifica]</time>
-                    </p>
                 </div>
             </section>
 

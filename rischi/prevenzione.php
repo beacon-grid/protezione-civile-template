@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../css/rischi-prevenzione.css">
 <script src="../js/rischi-prevenzione.js"></script>
 
 <div class="modal fade" id="modalKit" tabindex="-1" role="dialog" aria-labelledby="modalKitTitle" aria-hidden="true">
