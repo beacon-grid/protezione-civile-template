@@ -3,7 +3,7 @@ include('../includes/header.php');
 ?>
 
 <main id="main-content" tabindex="-1" aria-label="Bollettino allerte meteo">
-<div class="pc-bollettino-container my-5">
+<div class="pc-bollettino-container my-5 px-3 px-lg-0">
     <div class="row" style="--bs-gutter-x: 0;">
         <div class="col-lg-11 col-xl-10 mx-auto">
 

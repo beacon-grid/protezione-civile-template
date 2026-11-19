@@ -24,6 +24,11 @@
             });
         });
 
+        modal.addEventListener('show.bs.modal', function(event) {
+            const target = event.relatedTarget && event.relatedTarget.dataset.kitSection;
+            activateSection(target || btns[0].dataset.target);
+        });
+
         activateSection(btns[0].dataset.target);
     }
 

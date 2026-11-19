@@ -104,12 +104,12 @@ include('../includes/header.php');
                     <h3>Kit di emergenza</h3>
                     <p>Tre kit per tre situazioni diverse, con liste complete e consigli di manutenzione.</p>
                     <ul class="pg-kit-list">
-                        <li><i class="bi bi-backpack2" aria-hidden="true"></i><span>Zaino per evacuare<small>Devi uscire in pochi minuti</small></span></li>
-                        <li><i class="bi bi-house-door" aria-hidden="true"></i><span>Kit casa 72 ore<small>Resti in casa senza utenze</small></span></li>
-                        <li><i class="bi bi-car-front" aria-hidden="true"></i><span>Kit automobile<small>Sei bloccato in strada</small></span></li>
+                        <li><button type="button" class="pg-kit-option" data-bs-toggle="modal" data-bs-target="#modalKit" data-kit-section="evacuazione"><i class="bi bi-backpack2" aria-hidden="true"></i><span>Zaino per evacuare<small>Devi uscire in pochi minuti</small></span></button></li>
+                        <li><button type="button" class="pg-kit-option" data-bs-toggle="modal" data-bs-target="#modalKit" data-kit-section="casa"><i class="bi bi-house-door" aria-hidden="true"></i><span>Kit casa 72 ore<small>Resti in casa senza utenze</small></span></button></li>
+                        <li><button type="button" class="pg-kit-option" data-bs-toggle="modal" data-bs-target="#modalKit" data-kit-section="auto"><i class="bi bi-car-front" aria-hidden="true"></i><span>Kit automobile<small>Sei bloccato in strada</small></span></button></li>
                     </ul>
                     <button type="button" class="pg-card-btn" data-bs-toggle="modal" data-bs-target="#modalKit">
-                        Scopri i kit <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                        Scopri tutti i kit <i class="bi bi-arrow-right" aria-hidden="true"></i>
                     </button>
                 </div>
 
