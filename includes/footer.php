@@ -252,5 +252,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error('Errore widget allerta:', error));
 });
 </script>
+<?php if ($search_settings['enabled']): ?>
+<script src="/js/site-shortcuts.js" defer></script>
+<?php endif; ?>
 </body>
 </html>

@@ -121,7 +121,7 @@
 
                     <div class="d-flex align-items-center mb-4">
                         <div class="p-3 bg-info bg-opacity-10 text-info rounded-circle me-3" style="background-color: rgba(13, 202, 240, 0.1); color: #0dcaf0 !important;">
-                            <i class="bi bi-snowflake fs-2"></i>
+                            <i class="bi bi-snow2 fs-2"></i>
                         </div>
                         <div>
                             <span class="badge text-dark text-uppercase mb-1" style="background-color: #0dcaf0;">Rischio Invernale</span>
@@ -585,7 +585,7 @@
 
                     <div class="d-flex align-items-center mb-4">
                         <div class="p-3 bg-opacity-10 rounded-circle me-3" style="background-color: rgba(23, 162, 184, 0.1); color: #17a2b8;">
-                            <i class="bi bi-snow2 fs-2"></i>
+                            <i class="bi bi-exclamation-triangle fs-2"></i>
                         </div>
                         <div>
                             <span class="badge text-uppercase mb-1" style="background-color: #17a2b8; color: #fff;">Rischio Neve e Valanghe</span>
@@ -962,7 +962,7 @@
 
                     <div class="d-flex align-items-center mb-4">
                         <div class="p-3 bg-opacity-10 rounded-circle me-3" style="background-color: rgba(108, 117, 125, 0.1); color: #6c757d;">
-                            <i class="bi bi-factory fs-2"></i>
+                            <i class="bi bi-building-gear fs-2"></i>
                         </div>
                         <div>
                             <span class="badge text-uppercase mb-1" style="background-color: #6c757d; color: #fff;">Rischio Tecnologico</span>

@@ -51,6 +51,7 @@
 .site-search-home__icon { display: grid; place-items: center; flex: 0 0 3rem; height: 3rem; color: #124d80; background: #e8f1f7; border-radius: 50%; font-size: 1.2rem; }
 .site-search-home__form { display: flex; flex: 1 1 48%; gap: .6rem; max-width: 36rem; }
 .site-search-home__form .form-control { min-width: 0; min-height: 3.2rem; border-color: #9cabb8; }
+.site-search-home__form .form-control::placeholder { color: #526575; opacity: 1; }
 .site-search-home__form .btn { min-height: 3.2rem; white-space: nowrap; font-weight: 700; }
 
 .site-search__workspace {
@@ -101,6 +102,30 @@
 .site-search__filter-submit { min-height: 3rem; font-size: 1rem; font-weight: 700; }
 .site-search__panel .form-text { color: #344b5c; font-size: 1rem; line-height: 1.6; }
 .site-search__panel .form-text a { color: #124d80; font-weight: 700; text-underline-offset: .18em; }
+
+.site-search-shortcut-wrap { justify-content: flex-start; margin-top: .35rem; }
+.site-search-shortcut-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .25rem .45rem;
+    border: 1px solid #cbd6e2;
+    border-radius: .4rem;
+    background: #f7f9fc;
+    color: #35516b;
+    font-size: .75rem;
+    line-height: 1.2;
+}
+.site-search-shortcut-badge kbd {
+    padding: .1rem .25rem;
+    border: 1px solid #cbd6e2;
+    border-radius: .2rem;
+    background: #fff;
+    box-shadow: 0 1px 0 #dce5ed;
+    color: inherit;
+    font: inherit;
+    font-weight: 600;
+}
 
 .site-search__quick-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; }
 .site-search__quick-link {

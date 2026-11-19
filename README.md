@@ -382,6 +382,7 @@ L'editor Quill include un picker del glossario ricercabile e supporta le scorcia
 
 ### 6.3 Ricerca e consultazione del glossario
 - La ricerca pubblica è disponibile dalla homepage, dal piè di pagina e all'indirizzo `/cerca`; usa un modulo GET, perciò query e filtri sono condivisibili e funzionano senza JavaScript.
+- `Ctrl+/` (o `Command+/` su Mac) porta il focus alla ricerca presente nella pagina; dalle altre pagine apre `/cerca` e mette il focus nel campo. La scorciatoia non interviene mentre si scrive in un campo o in un'area modificabile. Il badge `Ctrl + /` è visibile solo su desktop; il testo alternativo è associato al campo tramite `aria-describedby`.
 - Cerca tra news pubblicate, definizioni attive del glossario, guide curate e documenti PDF presenti.
 - Gli amministratori possono attivare/disattivare la ricerca e scegliere le sezioni indicizzate da `admin/site_search_settings.php`; le impostazioni sono salvate in SQLite.
 - I filtri comprendono tipologia, categoria e anno per le notizie. I risultati sono ordinati per rilevanza; il testo è confrontato senza distinzione di maiuscole e accenti.
@@ -420,6 +421,14 @@ Il progetto include documentazione aggiuntiva per parti critiche della soluzione
 - `admin/README.md` - pannello di amministrazione e gestione news
 - `allerte/README.md` - sincronizzazione e API dell'allerta meteo
 - `news/README.md` - visualizzazione pubblica delle news
+
+### 6.9 Date di aggiornamento delle pagine
+- Le pagine informative mostrano una nota compatta prima del footer; homepage e news sono escluse.
+- La data delle pagine statiche è calcolata automaticamente in `php/page_update.php` usando l'ultima modifica dei file PHP della pagina e dei relativi contenuti inclusi. Non richiede l'inserimento manuale, ma non rileva modifiche ai soli file CSS/JS.
+- Il glossario considera anche il timestamp salvato in SQLite quando l'amministratore salva le voci o cambia lo stato del glossario. Prima del primo salvataggio, usa la data dei file PHP come stima.
+- `/allerte/` non usa questa nota: mostra l'ora dell'ultima sincronizzazione riuscita del bollettino. Se la sincronizzazione fallisce, conserva l'ora precedente e segnala che i dati potrebbero essere obsoleti.
+
+> **Limite in installazione e deploy**: copie, checkout o procedure di rilascio possono reimpostare le date dei file; in tal caso le pagine statiche mostreranno la data di installazione/deploy, non quella dell'ultima revisione editoriale. Per una data editoriale affidabile tra deploy serve conservarla in metadati persistenti o generare un manifest durante la build. Le modifiche ai soli CSS/JS non aggiornano la data automatica.
 
 ---
 

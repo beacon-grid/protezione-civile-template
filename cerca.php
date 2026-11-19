@@ -129,7 +129,7 @@ $queryTooShort = $query !== '' && !$queryHasSearchableToken;
                         name="q"
                         value="<?= htmlspecialchars($query, ENT_QUOTES, 'UTF-8') ?>"
                         maxlength="100"
-                        aria-describedby="search-help"
+                        aria-describedby="search-help search-shortcut-hint"
                         placeholder="Per esempio: alluvione">
                 </div>
                 <button class="btn btn-primary btn-lg site-search__submit" type="submit">
@@ -143,6 +143,14 @@ $queryTooShort = $query !== '' && !$queryHasSearchableToken;
                 <a href="/cerca?q=terremoto">terremoto</a> o
                 <a href="/cerca?q=piano+emergenza">piano di emergenza</a>.
             </p>
+            <p class="visually-hidden" id="search-shortcut-hint">
+                Scorciatoia da tastiera: premi Ctrl più barra obliqua, oppure Command più barra obliqua su Mac, per raggiungere la ricerca.
+            </p>
+            <div class="site-search-shortcut-wrap d-none d-lg-flex" aria-hidden="true">
+                <span class="site-search-shortcut-badge">
+                    <kbd>Ctrl</kbd><span>+</span><kbd>/</kbd>
+                </span>
+            </div>
 
             <div class="site-search__filters-wrap mt-4">
                 <details <?= $category !== '' || $year > 0 || $type !== 'all' ? 'open' : '' ?>>

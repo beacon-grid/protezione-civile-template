@@ -3,18 +3,18 @@
 // Elenco dei rischi: id sezione => [etichetta, icona Bootstrap, colore icona]
 $rischi_menu = [
     'meteo'        => ['Meteo',            'cloud-lightning-rain', '#0b7285'],
-    'neve'         => ['Neve',             'snowflake',            '#0b7285'],
+    'neve'         => ['Neve',             'snow2',                '#0b7285'],
     'terremoto'    => ['Terremoto',        'house-exclamation',    '#b02a37'],
     'alluvione'    => ['Alluvione',        'water',                '#0d6efd'],
     'incendio'     => ['Incendio boschivo','fire',                 '#b45309'],
     'vulcanico'    => ['Vulcanico',        'triangle-half',        '#6f42c1'],
     'frana'        => ['Frana',            'layers-half',          '#a0522d'],
-    'valanga'      => ['Valanga',          'snow2',                '#0e7490'],
+    'valanga'      => ['Valanga',          'exclamation-triangle', '#0e7490'],
     'crisi-idrica' => ['Crisi idrica',     'droplet-half',         '#0d6efd'],
     'ciclone'      => ['Ciclone',          'hurricane',            '#198754'],
     'maremoto'     => ['Maremoto',         'tsunami',              '#0a58ca'],
     'nucleare'     => ['Nucleare',         'radioactive',          '#946c00'],
-    'industriale'  => ['Industriale',      'factory',              '#495057'],
+    'industriale'  => ['Industriale',      'building-gear',        '#495057'],
     'blackout'     => ['Blackout',         'lightning-charge',     '#c2410c'],
 ];
 ?>

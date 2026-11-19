@@ -100,6 +100,11 @@ $searchSettings = site_search_settings();
                     <div>
                         <h2 class="h4 mb-1" id="home-search-title">Cerchi un’informazione?</h2>
                         <p class="mb-0">Trova rapidamente notizie, guide, documenti e definizioni.</p>
+                        <div class="site-search-shortcut-wrap d-none d-lg-flex" aria-hidden="true">
+                            <span class="site-search-shortcut-badge">
+                                <kbd>Ctrl</kbd><span>+</span><kbd>/</kbd>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <form action="/cerca" method="get" role="search" class="site-search-home__form">
@@ -111,11 +116,15 @@ $searchSettings = site_search_settings();
                         name="q"
                         maxlength="100"
                         placeholder="Es. alluvione, piano di emergenza"
-                        aria-label="Cerca nel sito">
+                        aria-describedby="home-search-shortcut-hint">
                     <button class="btn btn-primary btn-lg" type="submit">
                         Cerca <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
                     </button>
+                    <span class="visually-hidden" id="home-search-shortcut-hint">
+                        Scorciatoia da tastiera: premi Ctrl più barra obliqua, oppure Command più barra obliqua su Mac, per raggiungere la ricerca.
+                    </span>
                 </form>
+                
             </div>
         </div>
     </section>
