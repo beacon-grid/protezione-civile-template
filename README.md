@@ -93,7 +93,7 @@ Per un avvio rapido, è inoltre disponibile `setup.php`, utile per verificare la
 - [Homepage](docs/images/Homepage.png)
 - [Mappa](docs/images/Mappa.png)
 - [Bollettino](docs/images/Bollettino.png)
-- [I rischi](docs/images/I%20rischi.png)
+- [I rischi](docs/images/I%20Rischi.png)
 - [Chi siamo](docs/images/Chi-siamo.png)
 - [Pagina di emergenza](docs/images/Pagina%20emergenza.png)
 - [Avviso pagina di emergenza](docs/images/Avviso%20emergenza.png)
