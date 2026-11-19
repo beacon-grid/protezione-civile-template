@@ -9,7 +9,7 @@ include('includes/header.php');
     <div class="row text-center mb-5">
         <div class="col-12">
             <h1 class="display-4 fw-bold" style="color: var(--pc-blue);">Chi Siamo</h1>
-            <p class="lead text-secondary">Un gruppo di professionisti e volontari, ma prima di tutto una grande famiglia al servizio della comunità.</p>
+            <p class="lead text-dark">Un gruppo di professionisti e volontari, ma prima di tutto una grande famiglia al servizio della comunità.</p>
             <hr class="w-25 mx-auto" style="border-top: 3px solid var(--pc-yellow-text); opacity: 1;" aria-hidden="true">
         </div>
     </div>

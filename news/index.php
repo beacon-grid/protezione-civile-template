@@ -144,7 +144,7 @@ function build_url(array $params): string {
     .filtro-cat-btn-formazione    { color: #0e6b7a; border-color: #0e6b7a; }
     .filtro-cat-btn-allerta       { color: #b91c1c; border-color: #b91c1c; }
     .filtro-cat-btn-evento        { color: #92600a; border-color: #92600a; }
-    .filtro-cat-btn-comunicato    { color: #4a5568; border-color: #4a5568; }
+    .filtro-cat-btn-comunicato    { color: #212529; border-color: #212529; }
 
     .filtro-cat-btn-esercitazione.attivo,
     .filtro-cat-btn-esercitazione:hover { background: #1a5ba8; color: #fff; }
@@ -157,7 +157,7 @@ function build_url(array $params): string {
     .filtro-cat-btn-evento.attivo,
     .filtro-cat-btn-evento:hover        { background: #92600a; color: #fff; }
     .filtro-cat-btn-comunicato.attivo,
-    .filtro-cat-btn-comunicato:hover    { background: #4a5568; color: #fff; }
+    .filtro-cat-btn-comunicato:hover    { background: #212529; color: #fff; }
     `;
     const s = document.createElement('style');
     s.textContent = css;
@@ -191,7 +191,7 @@ function build_url(array $params): string {
             </p>
             <nav class="d-flex flex-wrap justify-content-center gap-2" aria-label="Filtra notizie per categoria">
                 <a href="<?= build_url(['cat' => '', 'page' => '']) ?>"
-                   class="btn btn-sm fw-semibold <?= $cat_filter === '' ? 'btn-primary' : 'btn-outline-secondary' ?>"
+                   class="btn btn-sm fw-semibold <?= $cat_filter === '' ? 'btn-primary' : 'btn-outline-dark' ?>"
                    <?= $cat_filter === '' ? 'aria-current="page"' : '' ?>>
                     Tutte
                 </a>
@@ -215,13 +215,13 @@ function build_url(array $params): string {
             </p>
             <nav class="d-flex flex-wrap justify-content-center gap-2" aria-label="Filtra notizie per anno">
                 <a href="<?= build_url(['anno' => '0', 'page' => '']) ?>"
-                   class="btn btn-sm btn-outline-secondary fw-semibold <?= $year_filter === 0 ? 'active' : '' ?>"
+                   class="btn btn-sm btn-outline-dark fw-semibold <?= $year_filter === 0 ? 'active' : '' ?>"
                    <?= $year_filter === 0 ? 'aria-current="page"' : '' ?>>
                     Tutti gli anni
                 </a>
                 <?php foreach ($anni_disponibili as $anno): ?>
                     <a href="<?= build_url(['anno' => $anno, 'page' => '']) ?>"
-                       class="btn btn-sm btn-outline-secondary fw-semibold <?= $year_filter === $anno ? 'active' : '' ?>"
+                       class="btn btn-sm btn-outline-dark fw-semibold <?= $year_filter === $anno ? 'active' : '' ?>"
                        <?= $year_filter === $anno ? 'aria-current="page"' : '' ?>>
                         <?= $anno ?>
                     </a>

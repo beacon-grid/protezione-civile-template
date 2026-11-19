@@ -11,7 +11,7 @@
     /* Colori principali */
     --pc-yellow:      #FFC200;   /* Giallo WCAG AA su blu (6.8:1) */
     --pc-yellow-dk:   #C9A600;   /* Giallo scuro per hover */
-    --pc-yellow-text: #996700;   /* Giallo testuale più scuro per sfondi chiari */
+    --pc-yellow-text: #916000;   /* Giallo testuale più scuro per sfondi chiari */
     --pc-blue:        #003B7A;   /* Blu istituzionale */
     --pc-blue-mid:    #004FA3;
     --pc-blue-lt:     #0061C8;
@@ -78,6 +78,11 @@ section {
 /* ======================================================
    3. ACCESSIBILITÀ — Skip to Content (AGID/WCAG)
    ====================================================== */
+.visually-hidden-focusable {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
 .visually-hidden-focusable:focus {
     position: fixed;
     top: 15px;
@@ -87,23 +92,23 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: var(--pc-yellow);
-    color: var(--pc-blue-text) !important;
+    background-color: #fff !important;
+    color: #000 !important;
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.95rem;
     text-transform: uppercase;
     text-decoration: none;
     letter-spacing: 0.5px;
-    border: 3px solid var(--pc-blue-text);
+    border: 3px solid #000;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     transition: transform 0.2s ease-in-out;
 }
 
 .visually-hidden-focusable:focus:hover {
-    background-color: var(--pc-yellow-dk);
-    color: var(--pc-blue-text) !important;
+    background-color: #fff !important;
+    color: #000 !important;
 }
 
 /* ======================================================
@@ -384,21 +389,41 @@ input[type="radio"]:focus-visible {
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    border-top: 3px solid rgba(0,0,0,.12);
     border-bottom: 3px solid rgba(0,0,0,.12);
     display: none; /* Nascondi di default, mostra solo se c'è un'allerta attiva */
     align-items: center;
     gap: 10px;
 }
 
+.alert-bar a.stato-allerta {
+    color: inherit;
+    text-decoration: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .alert-bar {
-        animation: pulse 3.5s ease-in-out infinite;
+        animation: alert-bar-pulse 3.5s ease-in-out infinite;
     }
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: .82; }
+@keyframes alert-bar-pulse {
+    0%, 100% {
+        border-top-color: rgba(0,0,0,.12);
+        border-bottom-color: rgba(0,0,0,.12);
+    }
+    50% {
+        border-top-color: rgba(255,255,255,.55);
+        border-bottom-color: rgba(255,255,255,.55);
+    }
+}
+
+.news-breadcrumb .breadcrumb-item a {
+    color: var(--pc-blue);
+}
+
+.news-breadcrumb .breadcrumb-item.active {
+    color: #495057;
 }
 
 .link-comune {
@@ -406,7 +431,7 @@ input[type="radio"]:focus-visible {
     font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.02em;
-    opacity: 0.95;
+    opacity: 1;
     text-transform: none;
     transition: opacity var(--transition);
     text-decoration: none;
@@ -503,7 +528,7 @@ input[type="radio"]:focus-visible {
 .blur-effect {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    background: rgba(255,255,255,.07) !important;
+    background: rgba(0,26,58,.92) !important;
     border: 1px solid rgba(255,255,255,.16) !important;
     border-radius: var(--radius-xl) !important;
 }
@@ -662,6 +687,15 @@ input[type="radio"]:focus-visible {
 }
 
 .btn-outline-primary {
+    --bs-btn-color: #0B5ED7;
+    --bs-btn-border-color: #0B5ED7;
+    --bs-btn-hover-bg: #0B5ED7;
+    --bs-btn-hover-border-color: #0B5ED7;
+    --bs-btn-focus-shadow-rgb: 11, 94, 215;
+    --bs-btn-active-bg: #0B5ED7;
+    --bs-btn-active-border-color: #0B5ED7;
+    --bs-btn-disabled-color: #0B5ED7;
+    --bs-btn-disabled-border-color: #0B5ED7;
     border-radius: var(--radius-md);
     font-weight: 600;
     transition: transform var(--transition), box-shadow var(--transition);
@@ -967,7 +1001,7 @@ footer {
 }
  
 .footer-bottom {
-    color: rgba(255,255,255,.6);
+    color: #fff;
     font-size: 0.82rem;
 }
  

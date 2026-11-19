@@ -37,7 +37,7 @@ include('includes/header.php');
 
                 <div class="col-lg-8">
                     <div class="map-toolbar">
-                        <span class="text-white-50 small fw-bold me-1"><i class="bi bi-funnel-fill me-1" aria-hidden="true"></i>Mostra:</span>
+                        <span class="text-white small fw-bold me-1"><i class="bi bi-funnel-fill me-1" aria-hidden="true"></i>Mostra:</span>
                         <button class="map-filter-btn active" data-layer="all" aria-label="Mostra tutti i punti sulla mappa" aria-pressed="true">
                             <span class="dot" style="background:#fff" aria-hidden="true"></span>Tutti
                         </button>
@@ -55,7 +55,7 @@ include('includes/header.php');
                         </button>
                     </div>
                     <div class="shadow-sm border border-top-0" style="border-radius:0 0 12px 12px; overflow:hidden;">
-                        <div id="map-pc"></div>
+                        <div id="map-pc" role="application" aria-label="Mappa interattiva delle sedi e delle aree di protezione civile"></div>
                     </div>
                 </div>
 
@@ -253,7 +253,7 @@ function formatDistanza(m) {
 function makeIcon(colore, label) {
     const size = 34;
     const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size+8}" viewBox="0 0 ${size} ${size+8}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size+8}" viewBox="0 0 ${size} ${size+8}" aria-hidden="true" focusable="false">
           <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
             <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,.35)"/>
           </filter>
@@ -302,7 +302,7 @@ function makeActions(lat, lng, titolo, indirizzo, pointId) {
 
 // ── Crea contenuto popup ──────────────────────────────
 function makePopup(colore, titolo, corpo, lat, lng, indirizzo, pointId) {
-    return `<div class="popup-header" style="background:${colore}">${titolo}</div>
+    return `<h2 class="popup-header" id="popup-title-${pointId}" style="background:${colore}">${titolo}</h2>
             <div class="popup-body">
                 <p>${corpo}</p>
                 ${makeActions(lat, lng, titolo, indirizzo, pointId)}
@@ -311,6 +311,14 @@ function makePopup(colore, titolo, corpo, lat, lng, indirizzo, pointId) {
 
 // ── Init mappa ────────────────────────────────────────
 const map = L.map('map-pc', { zoomControl: false }).setView([<?= floatval($site['address']['lat']) ?>, <?= floatval($site['address']['lng']) ?>], 14);
+const attribution = map.attributionControl.getContainer();
+attribution.setAttribute('role', 'group');
+attribution.setAttribute('aria-label', 'Attribuzione cartografica');
+map.on('popupopen', function(event) {
+    const popupElement = event.popup.getElement();
+    const heading = popupElement && popupElement.querySelector('.popup-header[id]');
+    if (heading) popupElement.setAttribute('aria-labelledby', heading.id);
+});
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -322,6 +330,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // ── Layer groups ──────────────────────────────────────
 const layers = { sedi: L.layerGroup(), attesa: L.layerGroup(), accoglienza: L.layerGroup() };
 
+function labelMarker(marker, label) {
+    marker.on('add', () => {
+        const element = marker.getElement();
+        if (element) element.setAttribute('aria-label', label);
+    });
+    return marker;
+}
+
 // Lista flat di tutti i punti per calcolo distanze
 const tuttiIPunti = [];
 
@@ -332,9 +348,11 @@ PUNTI.sedi.forEach((p, i) => {
         : `${p.desc}<br><b>${p.indirizzo}</b>`;
 
     const pointId = `sede-${i}`;
-    const marker = L.marker(p.coords, { icon: makeIcon(p.colore, '★') })
-     .bindPopup(makePopup(p.colore, p.titolo, desc, p.coords[0], p.coords[1], p.indirizzo, pointId), { maxWidth: 260 })
-     .addTo(layers.sedi);
+    const marker = labelMarker(
+        L.marker(p.coords, { icon: makeIcon(p.colore, '★') })
+            .bindPopup(makePopup(p.colore, p.titolo, desc, p.coords[0], p.coords[1], p.indirizzo, pointId), { maxWidth: 260 }),
+        `Sede operativa: ${p.titolo}, ${p.indirizzo}`
+    ).addTo(layers.sedi);
 
     tuttiIPunti.push({ marker, coords: p.coords, titolo: p.titolo, tipo: 'Sede operativa', layer: 'sedi' });
 });
@@ -343,12 +361,14 @@ PUNTI.sedi.forEach((p, i) => {
 PUNTI.attesa.forEach((p, i) => {
     const pointId = `attesa-${i}`;
     const titolo = `Area di Attesa ${p.num} — ${p.cod}`;
-    const marker = L.marker(p.coords, { icon: makeIcon('#C9A600', p.num) })
-     .bindPopup(makePopup('#C9A600', titolo,
-        `Punto di ammassamento popolazione.<br><b>${p.loc}</b>`,
-        p.coords[0], p.coords[1], p.loc, pointId
-     ), { maxWidth: 260 })
-     .addTo(layers.attesa);
+    const marker = labelMarker(
+        L.marker(p.coords, { icon: makeIcon('#C9A600', p.num) })
+            .bindPopup(makePopup('#C9A600', titolo,
+                `Punto di ammassamento popolazione.<br><b>${p.loc}</b>`,
+                p.coords[0], p.coords[1], p.loc, pointId
+            ), { maxWidth: 260 }),
+        `${titolo}, ${p.loc}`
+    ).addTo(layers.attesa);
 
     tuttiIPunti.push({ marker, coords: p.coords, titolo, tipo: 'Area di attesa', layer: 'attesa' });
 });
@@ -357,12 +377,14 @@ PUNTI.attesa.forEach((p, i) => {
 PUNTI.accoglienza.forEach((p, i) => {
     const pointId = `accoglienza-${i}`;
     const titolo = `Area di Accoglienza ${p.num} — ${p.cod}`;
-    const marker = L.marker(p.coords, { icon: makeIcon('#1A7A3C', p.num) })
-     .bindPopup(makePopup('#1A7A3C', titolo,
-        `Struttura di accoglienza e ricovero.<br><b>${p.loc}</b>`,
-        p.coords[0], p.coords[1], p.loc, pointId
-     ), { maxWidth: 260 })
-     .addTo(layers.accoglienza);
+    const marker = labelMarker(
+        L.marker(p.coords, { icon: makeIcon('#1A7A3C', p.num) })
+            .bindPopup(makePopup('#1A7A3C', titolo,
+                `Struttura di accoglienza e ricovero.<br><b>${p.loc}</b>`,
+                p.coords[0], p.coords[1], p.loc, pointId
+            ), { maxWidth: 260 }),
+        `${titolo}, ${p.loc}`
+    ).addTo(layers.accoglienza);
 
     tuttiIPunti.push({ marker, coords: p.coords, titolo, tipo: 'Area di accoglienza', layer: 'accoglienza' });
 });

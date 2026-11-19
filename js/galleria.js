@@ -82,7 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const lbImage        = document.getElementById('pcLbImage');
     const lbTitle        = document.getElementById('pcLightboxTitle');
     const lbCounter      = document.getElementById('pcLbCounter');
+    const lbStatus       = document.getElementById('pcLbStatus');
     const lbSpinner      = document.getElementById('pcLbSpinner');
+    const closeBtn       = lightbox.querySelector('.pc-lb-close');
     const prevBtn        = document.getElementById('pcLbPrev');
     const nextBtn        = document.getElementById('pcLbNext');
     const fullscreenBtn  = document.getElementById('pcLbFullscreen');
@@ -98,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let currentIndex = 0;
     let lastFocused  = null;
+    let backgroundState = [];
+    let previousBodyOverflow = '';
 
     // Stato zoom / pan / rotazione
     let scale = 1;
@@ -159,7 +163,10 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = images[(index + images.length) % images.length].src;
     }
 
-    function renderImage(index) {
+    function renderImage(index, announceChange) {
+        if (announceChange === undefined) {
+            announceChange = lightbox.classList.contains('is-open');
+        }
         currentIndex = (index + images.length) % images.length;
         const data = images[currentIndex];
 
@@ -180,6 +187,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         lbTitle.textContent = data.title;
         lbCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+        if (announceChange) {
+            lbStatus.textContent = data.title + ', immagine ' + (currentIndex + 1) + ' di ' + images.length;
+        }
 
         preload(currentIndex + 1);
         preload(currentIndex - 1);
@@ -187,18 +197,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openLightbox(index, triggerEl) {
         lastFocused = triggerEl || document.activeElement;
-        renderImage(index);
+        previousBodyOverflow = document.body.style.overflow;
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        document.querySelector('.pc-lb-close').focus();
+        renderImage(index, true);
+        document.addEventListener('focusin', keepFocusInLightbox);
+        closeBtn.focus();
+
+        backgroundState = Array.prototype.filter.call(document.body.children, function (element) {
+            return element !== lightbox && element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE';
+        }).map(function (element) {
+            return {
+                element: element,
+                inert: element.inert,
+                ariaHidden: element.getAttribute('aria-hidden')
+            };
+        });
+        backgroundState.forEach(function (item) {
+            item.element.inert = true;
+            item.element.setAttribute('aria-hidden', 'true');
+        });
     }
 
     function closeLightbox() {
         lightbox.classList.remove('is-open');
         lightbox.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (lastFocused) lastFocused.focus();
+        document.removeEventListener('focusin', keepFocusInLightbox);
+        document.body.style.overflow = previousBodyOverflow;
+        backgroundState.forEach(function (item) {
+            item.element.inert = item.inert;
+            if (item.ariaHidden === null) {
+                item.element.removeAttribute('aria-hidden');
+            } else {
+                item.element.setAttribute('aria-hidden', item.ariaHidden);
+            }
+        });
+        backgroundState = [];
+        if (lastFocused && lastFocused.isConnected) lastFocused.focus();
+    }
+
+    function keepFocusInLightbox(event) {
+        if (!lightbox.contains(event.target)) closeBtn.focus();
     }
 
     items.forEach(function (item) {
@@ -342,13 +382,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Focus trap semplice
         if (event.key === 'Tab') {
-            const focusable = lightbox.querySelectorAll('button');
+            const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'))
+                .filter(function (element) {
+                    return !element.hidden && element.getClientRects().length > 0;
+                });
+            if (!focusable.length) {
+                event.preventDefault();
+                closeBtn.focus();
+                return;
+            }
             const first = focusable[0];
             const last = focusable[focusable.length - 1];
-            if (event.shiftKey && document.activeElement === first) {
+            if (event.shiftKey && (document.activeElement === first || !lightbox.contains(document.activeElement))) {
                 event.preventDefault();
                 last.focus();
-            } else if (!event.shiftKey && document.activeElement === last) {
+            } else if (!event.shiftKey && (document.activeElement === last || !lightbox.contains(document.activeElement))) {
                 event.preventDefault();
                 first.focus();
             }

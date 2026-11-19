@@ -365,7 +365,7 @@ include('../includes/header.php');
         }
         .meteo-item .meteo-valore-secondario {
             font-size: 0.72rem;
-            color: #6b7a8d;
+            color: #495057;
             margin-top: 1px;
         }
         .meteo-item .meteo-etichetta {
@@ -457,11 +457,11 @@ include('../includes/header.php');
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #6b7a8d;
+            color: #495057;
         }
         .pc-fonte {
             font-size: 0.78rem;
-            color: #94a3b8;
+            color: #495057;
         }
         .pc-fonte a {
             color: var(--pc-blue-mid);

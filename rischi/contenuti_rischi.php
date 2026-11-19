@@ -14,7 +14,7 @@
                     <div class="d-flex align-items-center mb-4">
 
                         <div class="p-3 bg-info bg-opacity-10 text-info rounded-circle me-3">
-                            <i class="bi bi-cloud-lightning-rain fs-2"></i>
+                            <i class="bi bi-cloud-lightning-rain fs-2" aria-hidden="true"></i>
                         </div>
 
                         <div>
@@ -61,7 +61,7 @@
                             <div class="p-3 bg-light rounded h-100 border-top border-primary border-3">
 
                                 <h3 class="fw-bold text-primary mb-3 h5">
-                                    <i class="bi bi-cloud-sleet-fill me-2"></i>Pioggia, Grandine e Nebbia
+                                    <i class="bi bi-cloud-sleet-fill me-2" aria-hidden="true"></i>Pioggia, Grandine e Nebbia
                                 </h3>
                                 <p class="small text-muted fw-semibold mb-2">Pioggia e Grandine:</p>
                                 <ul class="small ps-3 mb-3" style="text-align: left;">

@@ -10,7 +10,9 @@
 
         function activateSection(target) {
             btns.forEach(function(btn) {
-                btn.classList.toggle('active', btn.dataset.target === target);
+                const isActive = btn.dataset.target === target;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-pressed', String(isActive));
             });
 
             sections.forEach(function(section) {

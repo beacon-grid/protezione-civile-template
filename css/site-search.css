@@ -170,6 +170,8 @@
 
 .site-search__empty { padding: clamp(1.5rem, 4vw, 3rem); text-align: center; background: var(--search-soft); border: 1px solid var(--search-line); border-radius: 1rem; }
 .site-search__empty p { font-size: 1.05rem; line-height: 1.65; }
+.site-search__empty a,
+.site-search__notice a { color: #003b7a; }
 .site-search__empty-icon { display: inline-grid; place-items: center; width: 3.5rem; height: 3.5rem; margin-bottom: 1rem; color: #124d80; background: #e1edf5; border-radius: 50%; font-size: 1.35rem; }
 .site-search__notice { display: flex; align-items: flex-start; gap: .65rem; padding: 1rem 1.1rem; color: #344b5c; background: #f3f7fa; border: 1px solid var(--search-line); border-radius: .75rem; line-height: 1.6; }
 .site-search__notice > i { flex: 0 0 auto; margin-top: .2rem; color: #124d80; }

@@ -130,7 +130,7 @@ $contenuto_sicuro = normalize_news_links($contenuto_sicuro);
       aria-labelledby="news-title">
 
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
+    <nav aria-label="breadcrumb" class="news-breadcrumb mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../">Home</a></li>
             <li class="breadcrumb-item"><a href="./">Notizie</a></li>
@@ -175,7 +175,7 @@ $contenuto_sicuro = normalize_news_links($contenuto_sicuro);
     <?php if (!empty($news['immagine'])): ?>
         <?php $imgAlt = trim($news['immagine_alt'] ?? '') ?: $news['titolo']; ?>
 
-        <figure class="mb-4">
+        <figure class="mb-4" aria-labelledby="news-title">
             <img src="../<?= htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8') ?>"
                  alt="<?= htmlspecialchars($imgAlt, ENT_QUOTES, 'UTF-8') ?>"
                  class="img-fluid rounded-3 shadow-sm w-100"
@@ -207,7 +207,7 @@ $contenuto_sicuro = normalize_news_links($contenuto_sicuro);
         </a>
 
         <a href="./?cat=<?= urlencode($news['categoria']) ?>"
-           class="btn btn-outline-secondary fw-semibold">
+           class="btn btn-outline-dark fw-semibold">
             <i class="bi bi-tag me-1" aria-hidden="true"></i>
             Altre news: <?= news_categoria_label($news['categoria']) ?>
         </a>

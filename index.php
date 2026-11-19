@@ -21,7 +21,7 @@ $searchSettings = site_search_settings();
 <link href="/css/site-search.css" rel="stylesheet">
 <?php endif; ?>
 <main id="main-content" tabindex="-1">
-    <section class="hero d-flex align-items-center">
+    <section class="hero d-flex align-items-center" aria-labelledby="home-hero-title">
         <div class="container">
             <div class="row align-items-center g-5">
                 
@@ -30,7 +30,7 @@ $searchSettings = site_search_settings();
                         <i class="bi bi-shield-fill-x me-1" aria-hidden="true"></i> Presidio Territoriale Attivo
                     </span>
                     
-                    <h1 class="display-4 fw-bold text-white text-uppercase tracking-wide mb-3">
+                    <h1 id="home-hero-title" class="display-4 fw-bold text-white text-uppercase tracking-wide mb-3">
                         Gruppo Comunale<br>
                         <span class="text-warning">Protezione Civile</span>
                     </h1>
@@ -54,7 +54,7 @@ $searchSettings = site_search_settings();
                 </div>
 
                 <div class="col-lg-5 d-none d-lg-block animate__animated animate__fadeInRight">
-                    <div class="card bg-white bg-opacity-10 text-white border border-white border-opacity-25 rounded-3 shadow blur-effect">
+                    <div class="card text-white border border-white border-opacity-25 rounded-3 shadow blur-effect">
                         <div class="card-body p-4">
                             <h2 class="h5 fw-bold text-warning border-bottom border-white border-opacity-25 pb-2 mb-3">
                                 <i class="bi bi-clock-history me-2" aria-hidden="true"></i>In Evidenza h24
@@ -68,9 +68,9 @@ $searchSettings = site_search_settings();
                                     </div>
                                 </li>
                                 <li class="mb-3 d-flex align-items-start">
-                                    <i class="bi bi-telephone-fill text-danger me-3 fs-4" style="color:#FFAB00 !important" aria-hidden="true"></i>
+                                    <i class="bi bi-telephone-fill text-warning me-3 fs-4" style="color:#FFAB00 !important" aria-hidden="true"></i>
                                     <div>
-                                        <strong class="d-block text-danger" style="color:#FFAB00 !important">Emergenze Nazionali:</strong>
+                                        <strong class="d-block text-warning" style="color:#FFAB00 !important">Emergenze Nazionali:</strong>
                                         <span class="fw-bold fs-5" ><?= htmlspecialchars($site['phones']['emergency']) ?></span>
                                     </div>
                                 </li>

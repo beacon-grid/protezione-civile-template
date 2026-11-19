@@ -238,14 +238,14 @@ $categorie = news_categorie();
     .filtro-cat-btn-formazione    { color: #0e6b7a; border-color: #0e6b7a; }
     .filtro-cat-btn-allerta       { color: #b91c1c; border-color: #b91c1c; }
     .filtro-cat-btn-evento        { color: #92600a; border-color: #92600a; }
-    .filtro-cat-btn-comunicato    { color: #4a5568; border-color: #4a5568; }
+    .filtro-cat-btn-comunicato    { color: #212529; border-color: #212529; }
 
     .filtro-cat-btn-esercitazione:hover { background: #1a5ba8; color: #fff; }
     .filtro-cat-btn-prevenzione:hover   { background: #1e7e4a; color: #fff; }
     .filtro-cat-btn-formazione:hover    { background: #0e6b7a; color: #fff; }
     .filtro-cat-btn-allerta:hover       { background: #b91c1c; color: #fff; }
     .filtro-cat-btn-evento:hover        { background: #92600a; color: #fff; }
-    .filtro-cat-btn-comunicato:hover    { background: #4a5568; color: #fff; }
+    .filtro-cat-btn-comunicato:hover    { background: #212529; color: #fff; }
     `;
     const s = document.createElement('style');
     s.textContent = css;

@@ -38,7 +38,6 @@ $is_admin = $is_admin ?? false;
 <head>
     <script src="/js/banda-check-config.js"></script>
     <script src="/js/banda-check.js"></script>
-    <script src="/js/alert-bar.js"></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -173,7 +172,7 @@ $is_admin = $is_admin ?? false;
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" aria-label="Menu di navigazione principale">
     <div class="container">
 
-        <a class="navbar-brand d-flex align-items-center" href="/" tabindex="-1">
+        <a class="navbar-brand d-flex align-items-center" href="/">
             <img src="/assets/img/logo.png"
                  alt="<?= htmlspecialchars($site['nome_breve'] . ' - logo del gruppo') ?>"
                  height="60"
@@ -285,17 +284,17 @@ $is_admin = $is_admin ?? false;
          aria-label="Stato delle allerte meteo e link esterni">
     <a href="<?= htmlspecialchars($site['urls']['comune']) ?>"
        class="link-comune small d-flex align-items-center gap-1"
-       style="color:rgba(255,255,255,.88) !important;">
+       style="color:#fff !important;">
         <i class="bi bi-arrow-left-short" aria-hidden="true"></i>
         Torna a: Sito Comune
     </a>
 
-    <div id="box-allerta"
-         class="stato-allerta mx-auto text-uppercase fw-bold p-2 text-center"
-         aria-live="polite"
-         aria-atomic="true">
+    <a href="/allerte/" id="box-allerta"
+       class="stato-allerta mx-auto text-uppercase fw-bold p-2 text-center"
+       aria-live="polite"
+       aria-atomic="true">
         <i id="icona-allerta" class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
         Stato Allerta: <span id="testo-allerta">Controllo in corso...</span>
-    </div>
+    </a>
     <div class="d-none d-lg-block" style="width:90px;" aria-hidden="true"></div>
 </section>

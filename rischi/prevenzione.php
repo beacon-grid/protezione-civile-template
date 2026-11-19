@@ -20,26 +20,26 @@
                 <!-- Sidebar navigazione -->
                 <nav class="mk-sidebar" aria-label="Sezioni guida kit">
                     <div class="mk-sidebar-section">Tipologie</div>
-                    <button class="mk-nav-btn active" data-target="panoramica">
+                    <button type="button" class="mk-nav-btn active" data-target="panoramica" aria-pressed="true">
                         <i class="bi bi-grid-3x3-gap" aria-hidden="true"></i> Panoramica
                     </button>
-                    <button class="mk-nav-btn" data-target="evacuazione">
+                    <button type="button" class="mk-nav-btn" data-target="evacuazione" aria-pressed="false">
                         <i class="bi bi-backpack2" aria-hidden="true"></i> Zaino evacuazione
                     </button>
-                    <button class="mk-nav-btn" data-target="casa">
+                    <button type="button" class="mk-nav-btn" data-target="casa" aria-pressed="false">
                         <i class="bi bi-house-door" aria-hidden="true"></i> Kit casa 72h
                     </button>
-                    <button class="mk-nav-btn" data-target="auto">
+                    <button type="button" class="mk-nav-btn" data-target="auto" aria-pressed="false">
                         <i class="bi bi-car-front" aria-hidden="true"></i> Kit automobile
                     </button>
                     <div class="mk-sidebar-section">Approfondimenti</div>
-                    <button class="mk-nav-btn" data-target="acqua">
+                    <button type="button" class="mk-nav-btn" data-target="acqua" aria-pressed="false">
                         <i class="bi bi-droplet-half" aria-hidden="true"></i> Scorte d'acqua
                     </button>
-                    <button class="mk-nav-btn" data-target="privacy">
+                    <button type="button" class="mk-nav-btn" data-target="privacy" aria-pressed="false">
                         <i class="bi bi-shield-lock" aria-hidden="true"></i> Privacy documenti
                     </button>
-                    <button class="mk-nav-btn" data-target="manutenzione">
+                    <button type="button" class="mk-nav-btn" data-target="manutenzione" aria-pressed="false">
                         <i class="bi bi-calendar-check" aria-hidden="true"></i> Manutenzione
                     </button>
                 </nav>
@@ -375,24 +375,24 @@
 
                 <nav class="mf-sidebar" aria-label="Sezioni guida fragilità">
                     <div class="mf-sidebar-section">Panoramica</div>
-                    <button class="mf-nav-btn active" data-target="intro">
+                    <button type="button" class="mf-nav-btn active" data-target="intro" aria-pressed="true">
                         <i class="bi bi-info-circle" aria-hidden="true"></i> Chi è a rischio
                     </button>
                     <div class="mf-sidebar-section">In emergenza</div>
-                    <button class="mf-nav-btn" data-target="preparazione">
+                    <button type="button" class="mf-nav-btn" data-target="preparazione" aria-pressed="false">
                         <i class="bi bi-shield-plus" aria-hidden="true"></i> Preparazione
                     </button>
-                    <button class="mf-nav-btn" data-target="motoria">
+                    <button type="button" class="mf-nav-btn" data-target="motoria" aria-pressed="false">
                         <i class="bi bi-person-wheelchair" aria-hidden="true"></i> Difficoltà motorie
                     </button>
-                    <button class="mf-nav-btn" data-target="sensoriale">
+                    <button type="button" class="mf-nav-btn" data-target="sensoriale" aria-pressed="false">
                         <i class="bi bi-eye-slash" aria-hidden="true"></i> Disabilità sensoriale
                     </button>
-                    <button class="mf-nav-btn" data-target="bambini">
+                    <button type="button" class="mf-nav-btn" data-target="bambini" aria-pressed="false">
                         <i class="bi bi-backpack" aria-hidden="true"></i> Neonati e bambini
                     </button>
                     <div class="mf-sidebar-section">Comunità</div>
-                    <button class="mf-nav-btn" data-target="vicinato">
+                    <button type="button" class="mf-nav-btn" data-target="vicinato" aria-pressed="false">
                         <i class="bi bi-heart" aria-hidden="true"></i> Rete di vicinato
                     </button>
                 </nav>

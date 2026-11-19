@@ -82,7 +82,7 @@ include __DIR__ . '/../../../includes/header.php';
 
         <div class="gallery-grid" id="galleryGrid">
             <?php foreach ($images as $index => $image): ?>
-                <figure class="gallery-item" data-index="<?= $index ?>" data-title="<?= htmlspecialchars(mb_strtolower($image['title'])) ?>" tabindex="0"
+                <figure class="gallery-item" data-index="<?= $index ?>" data-title="<?= htmlspecialchars(mb_strtolower($image['title'])) ?>" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="pcLightbox"
                         aria-label="Apri immagine: <?= htmlspecialchars($image['title']) ?>">
                     <div class="gallery-item-inner">
                         <img src="<?= htmlspecialchars($image['src']) ?>"
@@ -113,8 +113,8 @@ include __DIR__ . '/../../../includes/header.php';
 </main>
 
 <!-- Lightbox professionale -->
-<div class="pc-lightbox" id="pcLightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcLightboxTitle">
-    <div class="pc-lightbox-backdrop" data-close></div>
+<div class="pc-lightbox" id="pcLightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcLightboxTitle" aria-describedby="pcLbStatus">
+    <div class="pc-lightbox-backdrop" data-close aria-hidden="true"></div>
 
     <button type="button" class="pc-lb-btn pc-lb-close" data-close aria-label="Chiudi galleria">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -162,6 +162,7 @@ include __DIR__ . '/../../../includes/header.php';
     <div class="pc-lightbox-footer">
         <h2 class="pc-lightbox-title" id="pcLightboxTitle">Nessuna immagine selezionata</h2>
         <span class="pc-lightbox-counter" id="pcLbCounter">1 / 1</span>
+        <span class="visually-hidden" id="pcLbStatus" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
 </div>
 
