@@ -240,12 +240,6 @@ $is_admin = $is_admin ?? false;
                                 Impara Giocando (Scuole)
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="/glossario">
-                                <i class="bi bi-book text-primary me-2" aria-hidden="true"></i>
-                                Glossario
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
