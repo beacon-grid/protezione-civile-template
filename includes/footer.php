@@ -112,7 +112,11 @@ $page_updated_date = $page_updated_timestamp === null
                         <a href="/accessibilita.php"><i class="bi bi-universal-access-circle" aria-hidden="true"></i> Dichiarazione Accessibilità</a>
                     </li>
                     <li>
-                        <a href="/assets/pdf/regolamento_protezione_civile.pdf"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> Regolamento P.C. Comunale</a>
+                        <a href="/assets/pdf/regolamento_protezione_civile.pdf" aria-label="Regolamento P.C. Comunale (documento PDF)">
+                            <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+                            Regolamento P.C. Comunale
+                            <span class="visually-hidden">(PDF)</span>
+                        </a>
                     </li>
                     
                     <li class="footer-divider" aria-hidden="true"></li>

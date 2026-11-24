@@ -174,7 +174,7 @@ $is_admin = $is_admin ?? false;
 
         <a class="navbar-brand d-flex align-items-center" href="/">
             <img src="/assets/img/logo.png"
-                 alt="<?= htmlspecialchars($site['nome_breve'] . ' - logo del gruppo') ?>"
+                 alt=""
                  height="60"
                  class="d-inline-block align-top me-2"
                  onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='inline-block';">
@@ -218,14 +218,13 @@ $is_admin = $is_admin ?? false;
                     <a class="nav-link" href="/news/">Notizie</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdown"
-                       role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                    <button class="nav-link dropdown-toggle"
+                            type="button"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
                         Servizi e Mappe
-                    </a>
+                    </button>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm"
                         aria-labelledby="navbarDropdown"
                         data-bs-popper="static">

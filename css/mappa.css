@@ -133,6 +133,7 @@
     display: flex;
     align-items: center;
     gap: .7rem;
+    width: 100%;
     padding: .55rem .65rem;
     border-radius: 8px;
     cursor: pointer;
@@ -162,7 +163,7 @@
     line-height: 1.2;
 }
 .legend-item-text small {
-    font-size: .72rem;
+    font-size: .78rem;
     color: #64748b;
 }
 

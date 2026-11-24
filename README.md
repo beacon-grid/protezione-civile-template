@@ -430,6 +430,18 @@ Il progetto include documentazione aggiuntiva per parti critiche della soluzione
 
 > **Limite in installazione e deploy**: copie, checkout o procedure di rilascio possono reimpostare le date dei file; in tal caso le pagine statiche mostreranno la data di installazione/deploy, non quella dell'ultima revisione editoriale. Per una data editoriale affidabile tra deploy serve conservarla in metadati persistenti o generare un manifest durante la build. Le modifiche ai soli CSS/JS non aggiornano la data automatica.
 
+6.10 Scheda del Piano Familiare di Emergenza
+rischi/scheda-famiglia.php guida la compilazione, salva automaticamente i dati in localStorage del browser (emergencyPlanComplete) e permette di ripristinare un piano da testo QR o da immagine. Al primo utilizzo genera un ID del nucleo casuale (8 caratteri, senza dati personali), salvato insieme al piano e riportato nei QR: serve alla segreteria di campo per raggruppare i componenti della stessa famiglia.
+Il riconoscimento delle immagini usa il rilevatore nativo del browser quando disponibile e js/jsQR.min.js (jsQR 1.4.0, licenza Apache-2.0) come decoder locale: l'immagine non viene caricata sul server. L'immagine viene letta su sfondo bianco con margine aggiunto e provata a più scale (ingrandita se piccola, ridotta se molto grande). Il limite per file è 15 MB.
+La decompressione dei QR avviene nel browser con DecompressionStream (browser del 2023 o successivi). Sui browser più vecchi la pagina mostra un messaggio dedicato.
+La generazione PDF invia i dati a rischi/genera_piano_familiare.php solo per creare il documento; il piano non viene archiviato. Il server limita a 20 i componenti elaborati e convalida l'ID del nucleo.
+Formato dei QR. Entrambi i QR contengono un token che usa solo i caratteri A-Z e 0-9: TIPO (4 car.) + CRC32 (8 cifre esadecimali) + dati, dove i dati sono il JSON compatto, compresso con deflate e scritto in base32. Il tipo indica anche la versione del formato: PFP1 per il piano completo, PFS1 per la mini-scheda. Il formato è documentato nell'intestazione di includes/qr_token.php, che contiene anche le funzioni di codifica e decodifica condivise con il gestionale di segreteria da campo (qrTokenEncode, qrTokenDecode).
+Il QR principale (PFP1) contiene i dati non vuoti del piano, comprese le informazioni sanitarie inserite, e viene stampato a 50, 65 o 75 mm in base alla quantità di dati. Se il contenuto supera la capacità del codice, il PDF segnala che il QR non è disponibile.
+Le mini-schede personali (PFS1) hanno un QR distinto di circa 30 mm, con i dati della persona, l'indirizzo, il contatto di emergenza e l'ID del nucleo. Per mantenere il QR leggibile, un token oltre 650 caratteri viene ridotto: prima si omettono le note mediche (che restano stampate sulla scheda, con un avviso), poi tutto tranne i dati minimi per la registrazione. Le mini-schede non sono importabili come piano completo e sono pensate per la lettura in campo tramite qrTokenDecode.
+I QR non sono cifrati: compressione e base32 sono solo codifiche, quindi chiunque abbia il testo del codice può leggerne il contenuto. Il PDF avvisa l'utente di conservarlo con attenzione.
+I QR generati dai PDF precedenti (JSON in chiaro, doc: "PFE", versione 2) restano importabili.
+Le voci del kit e della checklist sono condivise tra form e PDF tramite includes/piano_familiare_voci.php.
+
 ---
 
 ## 7. Sicurezza
@@ -718,6 +730,14 @@ Se l'esportazione dei rischi mostra un errore di configurazione, verificare anch
 cd /var/www
 composer show mpdf/mpdf
 ```
+
+### Il ripristino del QR da immagine non riesce
+Usare una foto nitida con il QR intero, ben illuminato e non inclinato; il file deve essere inferiore a 15 MB. Se si usa uno screenshot del PDF, ingrandire prima il documento (almeno 150%) e inquadrare tutto il codice: il margine bianco viene aggiunto in automatico.
+Il QR deve essere quello del piano completo (testo che inizia con PFP1; per i vecchi PDF, JSON con PFE versione 2). Con una mini-scheda (PFS1) la pagina mostra un messaggio dedicato e non ripristina il piano.
+Se compare «Il codice risulta incompleto o alterato», il controllo di integrità (CRC) è fallito: il testo è stato troncato o letto male. Rileggere il QR e incollare il contenuto completo.
+Se compare un messaggio sul browser troppo vecchio, aggiornarlo o usare un altro browser: la lettura dei QR nuovi richiede DecompressionStream.
+Se la pagina mostra «Lettore QR non disponibile», ricaricarla senza cache e verificare che /js/jsQR.min.js venga servito senza errore. La decodifica avviene localmente, senza inviare l'immagine al server.
+In alternativa, usare «Importa dal testo» e incollare il contenuto letto dal QR con un lettore. Il token tollera maiuscole, minuscole, spazi, a-capo e prefissi aggiunti dal lettore; per i vecchi QR in JSON il modulo tollera anche BOM, blocchi Markdown, entità HTML (come &quot;) e testo attorno all'oggetto. In ogni caso il contenuto deve essere un piano completo valido.
 
 ### PHP non mostra errori in sviluppo
 Aggiungere temporaneamente in cima al file PHP da debuggare:

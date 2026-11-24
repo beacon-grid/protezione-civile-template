@@ -20,6 +20,7 @@
     --pc-light:       #F8F9FA;
     --pc-dark:        #0D1620;   /* Footer scuro */
     --pc-body-bg:     #eef1f5;
+    --pc-text-secondary: #495057;
 
     /* Livelli allerta */
     --alert-verde:    #1A7A3C;
@@ -212,6 +213,11 @@ input[type="radio"]:focus-visible {
     position: relative;
 }
 
+.navbar button.nav-link {
+    border: 0;
+    background: transparent;
+}
+
 .nav-link:hover {
     color: var(--pc-yellow) !important;
     background: rgba(255,255,255,.12);
@@ -263,7 +269,7 @@ input[type="radio"]:focus-visible {
 
 /* Link admin */
 .nav-link-admin {
-    opacity: 0.55;
+    opacity: 0.85;
     transition: opacity var(--transition) !important;
 }
 
@@ -730,7 +736,7 @@ footer {
 
  
 .footer-text {
-    color: rgba(255,255,255,.7);
+    color: rgba(255,255,255,.82);
     font-size: 0.88rem;
     line-height: 1.65;
 }
@@ -741,8 +747,8 @@ footer {
     border: 1px solid rgba(255,255,255,.09);
     border-radius: var(--radius-sm);
     padding: 10px 12px;
-    color: rgba(255,255,255,.55);
-    font-size: 0.78rem;
+    color: rgba(255,255,255,.82);
+    font-size: 0.82rem;
     line-height: 1.55;
 }
  
@@ -769,7 +775,7 @@ footer {
     transition: transform var(--transition);
 }
 .footer-links a {
-    color: rgba(255,255,255,.68);
+    color: rgba(255,255,255,.82);
     text-decoration: none;
     font-size: 0.9rem;
     display: inline-flex;
@@ -806,7 +812,7 @@ footer {
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 0.7rem;
-    color: rgba(255,255,255,.75);
+    color: rgba(255,255,255,.82);
     font-size: 0.88rem;
     line-height: 1.5;
 }
@@ -851,7 +857,7 @@ footer {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    opacity: 0.75;
+    opacity: 0.85;
     margin-bottom: 0.75rem;
 }
 

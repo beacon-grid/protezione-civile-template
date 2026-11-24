@@ -418,7 +418,8 @@ $tokenAttuale = hash('sha256', $site['security']['forza_aggiornamento_token'] ??
         <?php if (empty($manageable_users)): ?>
             <div class="text-center py-5 text-muted">
                 <i class="bi bi-people fs-1 d-block mb-2 opacity-25" aria-hidden="true"></i>
-                Nessun utente presente. <a href="#" data-bs-toggle="modal" data-bs-target="#createModal">Crea il primo &rarr;</a>
+                Nessun utente presente.
+                <button type="button" class="btn btn-link p-0 align-baseline" data-bs-toggle="modal" data-bs-target="#createModal">Crea il primo &rarr;</button>
             </div>
         <?php else: ?>
         <div class="table-responsive">

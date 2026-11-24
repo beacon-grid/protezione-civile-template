@@ -70,13 +70,13 @@ include('includes/header.php');
 
                             <?php foreach ($site['map_points']['sedi'] as $i => $sede): ?>
                             <div class="legend-row">
-                                <a class="legend-item" role="button" aria-label="Centra mappa su <?= htmlspecialchars($sede['titolo']) ?>, <?= htmlspecialchars($sede['indirizzo']) ?>" onclick="centraMappa([<?= $sede['coords'][0] ?>,<?= $sede['coords'][1] ?>], 18); return false;" href="#">
+                                <button type="button" class="legend-item" aria-label="Centra mappa su <?= htmlspecialchars($sede['titolo']) ?>, <?= htmlspecialchars($sede['indirizzo']) ?>" onclick="centraMappa([<?= $sede['coords'][0] ?>,<?= $sede['coords'][1] ?>], 18);">
                                     <span class="legend-dot" style="background:<?= htmlspecialchars($sede['colore']) ?>" aria-hidden="true"></span>
                                     <div class="legend-item-text">
                                         <strong><?= htmlspecialchars($sede['titolo']) ?></strong>
                                         <small><?= htmlspecialchars($sede['indirizzo']) ?></small>
                                     </div>
-                                </a>
+                                </button>
                                 <button type="button" class="legend-print-btn" data-action="print"
                                         data-title="<?= htmlspecialchars($sede['titolo']) ?>"
                                         data-address="<?= htmlspecialchars($sede['indirizzo']) ?>"
@@ -92,13 +92,13 @@ include('includes/header.php');
 
                             <?php foreach ($site['map_points']['attesa'] as $i => $att): ?>
                             <div class="legend-row">
-                                <a class="legend-item" role="button" aria-label="Centra mappa su <?= htmlspecialchars($att['loc']) ?> (<?= htmlspecialchars($att['cod']) ?>)" onclick="centraMappa([<?= $att['coords'][0] ?>,<?= $att['coords'][1] ?>], 18); return false;" href="#">
+                                <button type="button" class="legend-item" aria-label="Centra mappa su <?= htmlspecialchars($att['loc']) ?> (<?= htmlspecialchars($att['cod']) ?>)" onclick="centraMappa([<?= $att['coords'][0] ?>,<?= $att['coords'][1] ?>], 18);">
                                     <span class="legend-dot" style="background:#C9A600;" aria-hidden="true"></span>
                                     <div class="legend-item-text">
                                         <strong>Area <?= $i+1 ?> <span class="fw-normal text-muted">(<?= htmlspecialchars($att['cod']) ?>)</span></strong>
                                         <small><?= htmlspecialchars($att['loc']) ?></small>
                                     </div>
-                                </a>
+                                </button>
                                 <button type="button" class="legend-print-btn" data-action="print"
                                         data-title="Area di Attesa <?= $i+1 ?> — <?= htmlspecialchars($att['cod']) ?>"
                                         data-address="<?= htmlspecialchars($att['loc']) ?>"
@@ -114,13 +114,13 @@ include('includes/header.php');
 
                             <?php foreach ($site['map_points']['accoglienza'] as $i => $acc): ?>
                             <div class="legend-row">
-                                <a class="legend-item" role="button" aria-label="Centra mappa su <?= htmlspecialchars($acc['loc']) ?> (<?= htmlspecialchars($acc['cod']) ?>)" onclick="centraMappa([<?= $acc['coords'][0] ?>,<?= $acc['coords'][1] ?>], 18); return false;" href="#">
+                                <button type="button" class="legend-item" aria-label="Centra mappa su <?= htmlspecialchars($acc['loc']) ?> (<?= htmlspecialchars($acc['cod']) ?>)" onclick="centraMappa([<?= $acc['coords'][0] ?>,<?= $acc['coords'][1] ?>], 18);">
                                     <span class="legend-dot" style="background:#1A7A3C;" aria-hidden="true"></span>
                                     <div class="legend-item-text">
                                         <strong>Accoglienza <?= $i+1 ?> <span class="fw-normal text-muted">(<?= htmlspecialchars($acc['cod']) ?>)</span></strong>
                                         <small><?= htmlspecialchars($acc['loc']) ?></small>
                                     </div>
-                                </a>
+                                </button>
                                 <button type="button" class="legend-print-btn" data-action="print"
                                         data-title="Area di Accoglienza <?= $i+1 ?> — <?= htmlspecialchars($acc['cod']) ?>"
                                         data-address="<?= htmlspecialchars($acc['loc']) ?>"

@@ -23,16 +23,28 @@
     color: var(--text);
 }
 
-.emergency-container *,
-.emergency-container *::before,
-.emergency-container *::after {
-    box-shadow: none;
-}
-
 .intro-block {
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 0.95rem;
+}
+
+.plan-guide-list {
+    padding-left: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.plan-guide-list li {
+    margin-bottom: 0.35rem;
+}
+
+.plan-guide-import {
+    border-left: 3px solid var(--primary);
+    padding-left: 12px;
+}
+
+#importTitle {
+    scroll-margin-top: 7rem;
 }
 
 
@@ -105,9 +117,28 @@
 .field-emergency input:focus,
 .field-emergency textarea:focus,
 .field-emergency select:focus {
-    outline: none;
+    outline: 3px solid #005baa;
+    outline-offset: 3px;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 91, 170, .12) !important;
+    box-shadow: 0 0 0 1px #fff;
+}
+
+.field-emergency input.input-error,
+.field-emergency textarea.input-error,
+.field-emergency select.input-error {
+    border: 2px solid #b91c1c;
+}
+
+.field-error-msg {
+    display: none;
+    color: #991b1b;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.field-error-msg.visible {
+    display: block;
 }
 
 
@@ -128,7 +159,8 @@
     top: 12px;
     right: 12px;
     background: #fee2e2;
-    color: #ef4444;
+    color: #991b1b;
+    border: 1px solid #991b1b;
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -181,7 +213,14 @@
 
 .btn-emergency:hover {
     transform: translateY(-2px);
-    opacity: 0.95;
+    filter: brightness(0.96);
+}
+
+.btn-emergency:focus-visible,
+.remove-member-btn:focus-visible,
+.check-item input:focus-visible {
+    outline: 3px solid #005baa;
+    outline-offset: 3px;
 }
 
 
@@ -192,6 +231,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 12px;
+    border: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .check-item {
@@ -248,14 +290,21 @@
     margin-bottom: 6px;
 }
 
+.advice-list.text-muted,
+.bottom-note.text-muted,
+.member-hint.text-muted {
+    color: #495057 !important;
+}
+
 
 /* ════════════════════════════════════════════════════════════
    9. BARRA DI SCORRIMENTO PAGINA
-   Striscia fissa in cima allo schermo, indica quanto si è scrollato
+   Striscia fissa sotto la navbar, indica quanto si è scrollato
    ════════════════════════════════════════════════════════════ */
 .scroll-progress-bar {
     position: fixed;
     left: 0;
+    top: 0;
     width: 0%;
     height: 4px;
     background: var(--pc-yellow);
@@ -359,6 +408,16 @@
 
     .progress-bar-view { display: none; }
     .progress-ring-view { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-emergency,
+    .progress-bar-fill,
+    .scroll-progress-bar,
+    .check-item-missing {
+        transition: none;
+        animation: none;
+    }
 }
 
 

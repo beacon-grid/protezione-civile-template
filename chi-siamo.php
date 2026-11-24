@@ -122,7 +122,8 @@ include('includes/header.php');
             <div class="row g-3">
                 <div class="col-6">
                     <div class="p-3 bg-white rounded shadow-sm text-center border-bottom border-danger border-3 h-100 info-card">
-                        <i class="bi bi-shield-fill-check text-danger fs-1"></i>                        <h3 class="fw-bold fs-5 mt-3 mb-1 text-dark">Sicurezza</h3>
+                        <i class="bi bi-shield-fill-check text-danger fs-1" aria-hidden="true"></i>
+                        <h3 class="fw-bold fs-5 mt-3 mb-1 text-dark">Sicurezza</h3>
                         <small class="text-secondary fw-semibold">
                             Tutela delle persone e del territorio
                         </small>
@@ -131,7 +132,7 @@ include('includes/header.php');
 
                 <div class="col-6">
                     <div class="p-3 bg-white rounded shadow-sm text-center border-bottom border-primary border-3 h-100 info-card">
-                        <i class="bi bi-lightning-charge-fill text-primary fs-1"></i>
+                        <i class="bi bi-lightning-charge-fill text-primary fs-1" aria-hidden="true"></i>
                         <h3 class="fw-bold fs-5 mt-3 mb-1 text-dark">Prontezza</h3>
                         <small class="text-secondary fw-semibold">
                             Intervento rapido nelle emergenze
@@ -141,7 +142,7 @@ include('includes/header.php');
 
                 <div class="col-6">
                     <div class="p-3 bg-white rounded shadow-sm text-center border-bottom border-success border-3 h-100 info-card">
-                        <i class="bi bi-people-fill text-success fs-1"></i>
+                        <i class="bi bi-people-fill text-success fs-1" aria-hidden="true"></i>
                         <h3 class="fw-bold fs-5 mt-3 mb-1 text-dark">Volontariato</h3>
                         <small class="text-secondary fw-semibold">
                             Impegno al servizio della comunità
@@ -152,7 +153,7 @@ include('includes/header.php');
                 <div class="col-6">
                     <div class="p-3 bg-white rounded shadow-sm text-center border-bottom border-3 h-100 info-card"
                         style="border-color:#0F766E!important;">
-                        <i class="bi bi-diagram-3-fill fs-1" style="color:#0F766E;"></i>
+                        <i class="bi bi-diagram-3-fill fs-1" style="color:#0F766E;" aria-hidden="true"></i>
                         <h3 class="fw-bold fs-5 mt-3 mb-1 text-dark">Coordinamento</h3>
                         <small class="text-secondary fw-semibold">
                             Lavoro di squadra e gestione delle operazioni

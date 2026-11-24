@@ -330,12 +330,17 @@ function build_url(array $params): string {
 
                 <!-- Precedente -->
                 <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                    <a class="page-link"
-                       href="<?= $page > 1 ? build_url(['page' => $page - 1]) : '#' ?>"
-                       <?= $page <= 1 ? 'aria-disabled="true" tabindex="-1"' : 'aria-label="Pagina precedente"' ?>>
-                        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-                        PRECEDENTE
-                    </a>
+                    <?php if ($page > 1): ?>
+                        <a class="page-link" href="<?= build_url(['page' => $page - 1]) ?>" aria-label="Pagina precedente">
+                            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                            PRECEDENTE
+                        </a>
+                    <?php else: ?>
+                        <span class="page-link" aria-disabled="true">
+                            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                            PRECEDENTE
+                        </span>
+                    <?php endif; ?>
                 </li>
 
                 <?php
@@ -373,12 +378,17 @@ function build_url(array $params): string {
 
                 <!-- Successiva -->
                 <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                    <a class="page-link"
-                       href="<?= $page < $total_pages ? build_url(['page' => $page + 1]) : '#' ?>"
-                       <?= $page >= $total_pages ? 'aria-disabled="true" tabindex="-1"' : 'aria-label="Pagina successiva"' ?>>
-                       SUCCESSIVA 
-                       <i class="bi bi-chevron-right" aria-hidden="true"></i>
-                    </a>
+                    <?php if ($page < $total_pages): ?>
+                        <a class="page-link" href="<?= build_url(['page' => $page + 1]) ?>" aria-label="Pagina successiva">
+                            SUCCESSIVA
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    <?php else: ?>
+                        <span class="page-link" aria-disabled="true">
+                            SUCCESSIVA
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </span>
+                    <?php endif; ?>
                 </li>
 
             </ul>
